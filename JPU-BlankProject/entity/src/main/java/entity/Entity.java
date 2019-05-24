@@ -1,16 +1,14 @@
 package entity;
 
-import java.awt.Image;
-
 public class Entity {
 	
 	private boolean isAnimated;
 	private boolean isPushable;
 	private boolean isPlayer;
 	private boolean isFalling;
-	private Image sprite;
+	private char sprite;
 	
-	public Entity(boolean isAnimated, boolean isPushable, boolean isPlayer, boolean isFalling, Image sprite) {
+	public Entity(boolean isAnimated, boolean isPushable, boolean isPlayer, boolean isFalling, char sprite) {
 		this.isAnimated = isAnimated;
 		this.isPushable = isPushable;
 		this.isPlayer = isPlayer;
@@ -18,11 +16,8 @@ public class Entity {
 		this.sprite = sprite;
 	}
 
-	public Image getSprite() {
+	public char getSprite() {
 		return sprite;
-	}
-	protected void setSprite(Image sprite) {
-		this.sprite = sprite;
 	}
 	public boolean isAnimated() {
 		return isAnimated;
@@ -35,6 +30,9 @@ public class Entity {
 	}
 	public boolean isFalling() {
 		return isFalling;
+	}
+	public int update() {
+		return -1;
 	}
 	
 }
