@@ -4,17 +4,17 @@ import java.awt.Image;
 
 public class Entity {
 	
-	private boolean isMovable;
 	private boolean isAnimated;
 	private boolean isPushable;
 	private boolean isPlayer;
+	private boolean isFalling;
 	private Image sprite;
 	
-	public Entity(boolean isMovable, boolean isAnimated, boolean isPushable, boolean isPlayer, Image sprite) {
-		this.isMovable = isMovable;
+	public Entity(boolean isAnimated, boolean isPushable, boolean isPlayer, boolean isFalling, Image sprite) {
 		this.isAnimated = isAnimated;
 		this.isPushable = isPushable;
 		this.isPlayer = isPlayer;
+		this.isFalling = isFalling;
 		this.sprite = sprite;
 	}
 
@@ -24,9 +24,6 @@ public class Entity {
 	protected void setSprite(Image sprite) {
 		this.sprite = sprite;
 	}
-	public boolean isMovable() {
-		return isMovable;
-	}
 	public boolean isAnimated() {
 		return isAnimated;
 	}
@@ -35,6 +32,9 @@ public class Entity {
 	}
 	public boolean isPlayer() {
 		return isPlayer;
+	}
+	public boolean isFalling() {
+		return isFalling;
 	}
 	
 }

@@ -9,8 +9,8 @@ public class Anime extends Entity {
 	private double frame = 0.0;
 	private double step = 0.1;
 
-	public Anime(boolean isMovable, boolean isPushable, boolean isPlayer, Image sprite) {
-		super(isMovable, true, isPushable, isPlayer, sprite);
+	public Anime(boolean isPushable, boolean isPlayer, boolean isFalling, Image sprite) {
+		super(true, isPushable, isPlayer, isFalling, sprite);
 		this.addSprite(sprite);
 	}
 	
@@ -21,6 +21,9 @@ public class Anime extends Entity {
 	
 	protected void addSprite(Image image) {
 		sprites.add(image);
+	}
+	protected void addSprite(ArrayList<Image> images) {
+		sprites.addAll(images);
 	}
 	protected void clearSprites() {
 		sprites.clear();

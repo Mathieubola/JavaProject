@@ -17,8 +17,8 @@ public class Player extends Anime {
 	private Image img_Joueur;
 	private ControllerOrder direction;
 
-	public Player(boolean isMovable, boolean isPushable, boolean isPlayer, Image sprite) throws IOException {
-		super(false, false, true, ImageIO.read(new File("Player_Null.png")));
+	public Player(boolean isPushable, boolean isPlayer, Image sprite) throws IOException {
+		super(false, true, false, ImageIO.read(new File("Player_Null.png")));
 		
 		try {
 			img_Joueur = ImageIO.read(new File("Player_Null.png"));
@@ -45,21 +45,20 @@ public class Player extends Anime {
 			this.clearSprites();
 			switch (direction) {
 			case Down:
-				
+				this.addSprite(img_Joueur);
 				break;
 			case Left:
-				
+				this.addSprite(img_Joueur_Left);
 				break;
 			case Null:
-				
+				this.addSprite(img_Joueur);
 				break;
 			case Right:
-				
+				this.addSprite(img_Joueur_Right);
 				break;
 			case Up:
-				
+				this.addSprite(img_Joueur);
 				break;
-			
 			}
 		}
 	}
