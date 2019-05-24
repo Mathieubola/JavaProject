@@ -1,18 +1,19 @@
 package controller;
 
 import contract.ControllerOrder;
+import contract.IController;
 import contract.IModel;
 import contract.IView;
 import entity.Entity;
 import entity.Player;
 
-public class Controller {
+public class Controller implements IController {
 	
 	private IView view;
 	private IModel model;
 	
-	private int width = 50; //Hauteur du terrain
-	private int height = 50; //Largeur du terrain
+	private int width = 60; //Hauteur du terrain
+	private int height = 60; //Largeur du terrain
 	private int score = 0; //Score du joueur
 	private int delay = 30; //Delay entre les frames (30 fps -> 1000/30 = 29.333... ~= 30 ms)
 	
@@ -31,8 +32,10 @@ public class Controller {
 	}
 	
 	public void start() {
+		view.getViewFrame().getViewPanel().addEntitys(entitys);
+		entitys = model.getMap(1);
+		
 		while (player.isAlive()) {
-			this.movePlayer();
 			this.moveFallingObject();
 			this.collision();
 			this.updateAnimation();
@@ -52,7 +55,7 @@ public class Controller {
 	}
 	
 	public void updateAnimation() {
-		
+		view.getViewFrame().getViewPanel().repaint();
 	}
 	
 	
@@ -66,7 +69,22 @@ public class Controller {
 	}
 
 	public void orderPerform(final ControllerOrder controllerOrder) {
-		
+		switch (controllerOrder) {
+		case Left:
+			player.setX(player.getX() - 1);
+			break;
+		case Right:
+			player.setX(player.getX() + 1);
+			break;
+		case Up:
+			player.setY(player.getY() - 1);
+			break;
+		case Down:
+			player.setY(player.getY() + 1);
+			break;
+		default:
+			break;
+		}
 	}
 	
 }
