@@ -17,7 +17,7 @@ public class Controller implements IController {
 	private int score = 0; //Score du joueur
 	private int delay = 30; //Delay entre les frames (30 fps -> 1000/30 = 29.333... ~= 30 ms)
 	
-	private Entity[][] entitys = new Entity[width][height]; //Tableau fixe contenant toute les entité du tableau (les rocher, diamant et tt)
+	private Entity[][] entitys = new Entity[width][height]; //Tableau fixe contenant toute les entitï¿½ du tableau (les rocher, diamant et tt)
 	private Player player;
 	
 	private ControllerOrder direction;
@@ -52,6 +52,26 @@ public class Controller implements IController {
 	
 	public void collision() {
 		//Checker si on c'est pas pris un rochet sur la geul ou si on est pas sur un crystal ou un portail
+
+	}
+	
+	public int[] getPlayerPosition() {
+		int Py;
+		int Px;
+		int[] playerPos;
+		for(int y = 0; y < entitys.max; y++) {
+			for(int x = 0; x < entitys[y][x].max; x++) {
+				if(entitys[y][x].isPlayer() == true) {
+					Py = y;
+					Px = x;
+				}
+			}
+		}
+		
+		playerPos[0] = Py;
+		playerPos[1] = Px;
+		
+		return playerPos;
 	}
 	
 	public void updateAnimation() {
