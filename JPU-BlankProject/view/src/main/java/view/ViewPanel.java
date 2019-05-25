@@ -15,9 +15,14 @@ import entity.Entity;
 public class ViewPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private int Zoom = 50;
+	private int xView = 15;
+	private int yView = 15;
+	private int xArea = 60;
+	private int yArea = 60;
+	
 	private ViewFrame viewFrame;
-	private Entity[][] entitys;
-	private int Zoom = 30;
+	private Entity[][] entitys = new Entity[60][60];
 	
 	private ArrayList<Image> img_Rocher;
 	private ArrayList<Image> img_Diamant;
@@ -33,6 +38,13 @@ public class ViewPanel extends JPanel {
 
 	public ViewPanel(final ViewFrame viewFrame) {
 		this.setViewFrame(viewFrame);
+		img_Rocher = new ArrayList<Image>();
+		img_Diamant = new ArrayList<Image>();
+		img_Portal = new ArrayList<Image>();
+		img_Enemie_1 = new ArrayList<Image>();
+		img_Joueur_Right = new ArrayList<Image>();
+		img_Joueur_Left = new ArrayList<Image>();
+		img_Joueur_Mort = new ArrayList<Image>();
 		try {
 			img_Rocher.add(ImageIO.read(new File("Stone_0.png")));
 			img_Rocher.add(ImageIO.read(new File("Stone_1.png")));
@@ -54,7 +66,6 @@ public class ViewPanel extends JPanel {
 			img_Enemie_1.add(ImageIO.read(new File("Ennemie_1_1.png")));
 			img_Enemie_1.add(ImageIO.read(new File("Ennemie_1_2.png")));
 			img_Enemie_1.add(ImageIO.read(new File("Ennemie_1_3.png")));
-			img_Enemie_1.add(ImageIO.read(new File("Ennemie_1_4.png")));
 			
 			img_Joueur = ImageIO.read(new File("Player_Null.png"));
 			img_Joueur_Right.add(ImageIO.read(new File("Player_Right_0.png")));
@@ -77,15 +88,20 @@ public class ViewPanel extends JPanel {
 	private void setViewFrame(final ViewFrame viewFrame) {
 		this.viewFrame = viewFrame;
 	}
+	
+	private int positif(int i) {
+		return i >= 0 ? i : 0;
+	}
 
 	protected void paintComponent(final Graphics graphics) {
 		graphics.setColor(Color.black);
 		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
-		if (entitys.length > 0) {
+		int[] PlayerPos = viewFrame.getController().getPlayerPos();
+		if (entitys.length > 0 && PlayerPos.length == 2) {
 			if (entitys[0].length > 0) {
 				
-				for (int i = 0; i < entitys.length; i++) {
-					for (int j = 0; j < entitys[i].length; j++) {
+				for (int i = positif(PlayerPos[1] - yView / 2) ; i < PlayerPos[1] + yView / 2 && i < entitys.length; i++) {
+					for (int j = positif(PlayerPos[0] - xView / 2); j < PlayerPos[0] + xView / 2 && j < entitys[i].length; j++) {
 						
 						graphics.drawImage(img_Terre_Bg, j*Zoom, i*Zoom, Zoom, Zoom, this);
 						if (entitys[i][j] != null) {
@@ -117,7 +133,6 @@ public class ViewPanel extends JPanel {
 							if (entitys[i][j].getSprite() != ' ') {
 								graphics.drawImage(sprite, j*Zoom, i*Zoom, Zoom, Zoom, this);
 							}
-							
 						}
 						
 					}
@@ -130,6 +145,22 @@ public class ViewPanel extends JPanel {
 
 	public void addEntitys(Entity[][] entitys) {
 		this.entitys = entitys;
+	}
+
+	public int getZoom() {
+		return Zoom;
+	}
+	public int getxView() {
+		return xView;
+	}
+	public int getyView() {
+		return yView;
+	}
+	public int getxArea() {
+		return xArea;
+	}
+	public int getyArea() {
+		return yArea;
 	}
 	
 }

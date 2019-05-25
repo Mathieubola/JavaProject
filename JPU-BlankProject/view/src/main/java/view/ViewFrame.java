@@ -37,7 +37,7 @@ public class ViewFrame extends JFrame implements KeyListener {
 		this.buildViewFrame(model);
 	}
 	
-	private IController getController() {
+	protected IController getController() {
 		return this.controller;
 	}
 	
@@ -60,7 +60,7 @@ public class ViewFrame extends JFrame implements KeyListener {
 		this.setResizable(false);
 		this.addKeyListener(this);
 		this.setContentPane(viewPanel);
-		this.setSize(400 + this.getInsets().left + this.getInsets().right, 60 + this.getInsets().top + this.getInsets().bottom);
+		this.setSize(viewPanel.getxView() * viewPanel.getZoom(), viewPanel.getyView() * viewPanel.getZoom());
 		this.setLocationRelativeTo(null);
 	}
 	
