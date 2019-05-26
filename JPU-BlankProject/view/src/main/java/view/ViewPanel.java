@@ -88,50 +88,51 @@ public class ViewPanel extends JPanel {
 	private void setViewFrame(final ViewFrame viewFrame) {
 		this.viewFrame = viewFrame;
 	}
-	
-	private int positif(int i) {
-		return i >= 0 ? i : 0;
-	}
 
 	protected void paintComponent(final Graphics graphics) {
 		graphics.setColor(Color.black);
-		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
+		graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
+		
 		int[] PlayerPos = viewFrame.getController().getPlayerPos();
 		if (entitys.length > 0 && PlayerPos.length == 2) {
 			if (entitys[0].length > 0) {
 				
-				for (int i = positif(PlayerPos[1] - yView / 2) ; i < PlayerPos[1] + yView / 2 && i < entitys.length; i++) {
-					for (int j = positif(PlayerPos[0] - xView / 2); j < PlayerPos[0] + xView / 2 && j < entitys[i].length; j++) {
+				for (int y = PlayerPos[1] - yView / 2, coy = 0 ; y < PlayerPos[1] + yView / 2; y++, coy++) {
+					
+					for (int x = PlayerPos[0] - xView / 2, cox = 0; x < PlayerPos[0] + xView / 2; x++, cox++) {
 						
-						graphics.drawImage(img_Terre_Bg, j*Zoom, i*Zoom, Zoom, Zoom, this);
-						if (entitys[i][j] != null) {
-							Image sprite = img_Terre_Bg;
-							
-							switch (entitys[i][j].getSprite()) {
-							case '#':
-								sprite = img_Incassable;
-								break;
-							case 'O':
-								sprite = img_Rocher.get(entitys[i][j].update());
-								break;
-							case 'T':
-								sprite = img_Diamant.get(entitys[i][j].update());
-								break;
-							case '_':
-								sprite = img_Terre;
-								break;
-							case '@':
-								sprite = img_Enemie_1.get(entitys[i][j].update());
-								break;
-							case '=':
-								sprite = img_Portal.get(entitys[i][j].update());
-								break;
-							case 'P':
-								sprite = img_Portal.get(entitys[i][j].update());
-								break;
-							}
-							if (entitys[i][j].getSprite() != ' ') {
-								graphics.drawImage(sprite, j*Zoom, i*Zoom, Zoom, Zoom, this);
+						if (y >= 0 && y < entitys.length && x >= 0 && x < entitys[y].length) {
+							graphics.drawImage(img_Terre_Bg, cox*Zoom, coy*Zoom, Zoom, Zoom, this);
+							if (entitys[y][x] != null) {
+								System.out.println(y + " " + x);
+								Image sprite = img_Terre_Bg;
+								
+								switch (entitys[y][x].getSprite()) {
+								case '#':
+									sprite = img_Incassable;
+									break;
+								case 'O':
+									sprite = img_Rocher.get(entitys[y][x].update());
+									break;
+								case 'T':
+									sprite = img_Diamant.get(entitys[y][x].update());
+									break;
+								case '_':
+									sprite = img_Terre;
+									break;
+								case '@':
+									sprite = img_Enemie_1.get(entitys[y][x].update());
+									break;
+								case '=':
+									sprite = img_Portal.get(entitys[y][x].update());
+									break;
+								case 'P':
+									sprite = img_Joueur;
+									break;
+								}
+								if (entitys[y][x].getSprite() != ' ') {
+									graphics.drawImage(sprite, cox*Zoom, coy*Zoom, Zoom, Zoom, this);
+								}
 							}
 						}
 						
