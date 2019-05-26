@@ -93,7 +93,7 @@ public class ViewPanel extends JPanel {
 		graphics.setColor(Color.black);
 		graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
-		int[] PlayerPos = viewFrame.getController().getPlayerPos();
+		int[] PlayerPos = viewFrame.getController().getPlayerPosition();
 		if (entitys.length > 0 && PlayerPos.length == 2) {
 			if (entitys[0].length > 0) {
 				

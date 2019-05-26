@@ -17,7 +17,7 @@ public class Controller implements IController {
 	private int score = 0; //Score du joueur
 	private int delay = 30; //Delay entre les frames (30 fps -> 1000/30 = 29.333... ~= 30 ms)
 	
-	private Entity[][] entitys = new Entity[width][height]; //Tableau fixe contenant toute les entitï¿½ du tableau (les rocher, diamant et tt)
+	private Entity[][] entitys = new Entity[width][height]; //Tableau fixe contenant toute les entité du tableau (les rocher, diamant et tt)
 	private Player player;
 
 	public Controller(final IView view, final IModel model) {
@@ -34,7 +34,7 @@ public class Controller implements IController {
 		entitys = model.getMap(1);
 		
 		
-		while (getPlayerPos().length == 2) {
+		while (getPlayerPosition().length == 2) {
 			this.moveFallingObject();
 			this.collision();
 			this.updateAnimation();
@@ -59,22 +59,18 @@ public class Controller implements IController {
 
 	}
 	
-	public int[] getPlayerPositionition() {
-		int Py;
-		int Px;
-		int[] playerPos;
-		for(int y = 0; y < entitys.max; y++) {
-			for(int x = 0; x < entitys[y][x].max; x++) {
-				if(entitys[y][x].isPlayer() == true) {
-					Py = y;
-					Px = x;
+	public int[] getPlayerPosition() {
+		int[] playerPos = new int[2];
+		for(int y = 0; y < entitys.length; y++) {
+			for(int x = 0; x < entitys[y].length; x++) {
+				if (entitys[y][x] != null) {
+					if(entitys[y][x].isPlayer() == true) {
+						playerPos[0] = x;
+						playerPos[1] = y;
+					}
 				}
 			}
 		}
-		
-		playerPos[0] = Py;
-		playerPos[1] = Px;
-		
 		return playerPos;
 	}
 	
