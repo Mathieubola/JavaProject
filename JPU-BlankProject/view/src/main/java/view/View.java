@@ -24,7 +24,12 @@ public class View implements IView, Runnable {
 	}
 	
 	protected static ControllerOrder keyCodeToControllerOrder(final int keyCode) {
-		return keyCodeControllerOrder.get(keyCode);
+		if (keyCodeControllerOrder.containsKey(keyCode)) {
+			return keyCodeControllerOrder.get(keyCode);
+		} else {
+			return ControllerOrder.Null;
+		}
+		
 	}
 
 	public void run() {

@@ -30,7 +30,7 @@ public class Controller implements IController {
 	}
 	
 	public void start() {
-		view.getViewFrame().getViewPanel().addEntitys(entitys);
+		view.getViewFrame().getViewPanel().setEntitys(entitys);
 		entitys = model.getMap(1);
 		
 		
@@ -75,6 +75,7 @@ public class Controller implements IController {
 	}
 	
 	public void updateAnimation() {
+		view.getViewFrame().getViewPanel().setEntitys(entitys);
 		view.getViewFrame().getViewPanel().repaint();
 	}
 	
@@ -115,6 +116,15 @@ public class Controller implements IController {
 		if (entitys[yP][xP] == null) {
 			entitys[yP][xP] = entitys[oyP][oxP];
 			entitys[oyP][oxP] = null;
+		} else {
+			if (entitys[yP][xP].isDigable()) {
+				if (entitys[yP][xP].getSprite() == 'T') {
+					score += 1;
+					view.getViewFrame().getViewPanel().setScore(score);
+				}
+				entitys[yP][xP] = entitys[oyP][oxP];
+				entitys[oyP][oxP] = null;
+			}
 		}
 	}
 	

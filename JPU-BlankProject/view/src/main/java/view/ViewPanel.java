@@ -21,6 +21,8 @@ public class ViewPanel extends JPanel {
 	private int xArea = 60;
 	private int yArea = 60;
 	
+	private int score = 0;
+	
 	private ViewFrame viewFrame;
 	private Entity[][] entitys = new Entity[60][60];
 	
@@ -93,18 +95,33 @@ public class ViewPanel extends JPanel {
 		graphics.setColor(Color.black);
 		graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
+		this.displayMap(graphics);
+		
+		this.displayScore(graphics);
+	}
+	
+	private void displayScore(Graphics graphics) {
+		graphics.setColor(Color.white);
+		graphics.fillRoundRect(this.getWidth() / 2 - Zoom * 2, -1 * Zoom, Zoom * 4, Zoom * 2, Zoom / 2, Zoom / 2);
+		graphics.setColor(Color.black);
+		graphics.fillRoundRect(this.getWidth() / 2 - Zoom * 2 +2, -1 * Zoom +2, Zoom * 4 -4, Zoom * 2 -4, Zoom / 2, Zoom / 2);
+		graphics.setColor(Color.white);
+		graphics.drawString("Score : " + score, this.getWidth() / 2 - Zoom, Zoom / 2);
+	}
+	
+	private void displayMap(Graphics graphics) {
 		int[] PlayerPos = viewFrame.getController().getPlayerPosition();
+		
 		if (entitys.length > 0 && PlayerPos.length == 2) {
 			if (entitys[0].length > 0) {
 				
-				for (int y = PlayerPos[1] - yView / 2, coy = 0 ; y < PlayerPos[1] + yView / 2; y++, coy++) {
+				for (int y = PlayerPos[1] - yView / 2, coy = 0 ; y <= PlayerPos[1] + yView / 2; y++, coy++) {
 					
-					for (int x = PlayerPos[0] - xView / 2, cox = 0; x < PlayerPos[0] + xView / 2; x++, cox++) {
+					for (int x = PlayerPos[0] - xView / 2, cox = 0; x <= PlayerPos[0] + xView / 2; x++, cox++) {
 						
 						if (y >= 0 && y < entitys.length && x >= 0 && x < entitys[y].length) {
 							graphics.drawImage(img_Terre_Bg, cox*Zoom, coy*Zoom, Zoom, Zoom, this);
 							if (entitys[y][x] != null) {
-								System.out.println(y + " " + x);
 								Image sprite = img_Terre_Bg;
 								
 								switch (entitys[y][x].getSprite()) {
@@ -141,11 +158,14 @@ public class ViewPanel extends JPanel {
 				
 			}
 		}
-		
 	}
 
-	public void addEntitys(Entity[][] entitys) {
+	public void setEntitys(Entity[][] entitys) {
 		this.entitys = entitys;
+	}
+	
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	public int getZoom() {
