@@ -19,8 +19,6 @@ public class Controller implements IController {
 	
 	private Entity[][] entitys = new Entity[width][height]; //Tableau fixe contenant toute les entit� du tableau (les rocher, diamant et tt)
 	private Player player;
-	
-	private ControllerOrder direction;
 
 	public Controller(final IView view, final IModel model) {
 		this.setView(view);
@@ -35,10 +33,16 @@ public class Controller implements IController {
 		view.getViewFrame().getViewPanel().addEntitys(entitys);
 		entitys = model.getMap(1);
 		
-		while (player.isAlive()) {
+		
+		while (getPlayerPos().length == 2) {
 			this.moveFallingObject();
 			this.collision();
 			this.updateAnimation();
+			try {
+				Thread.sleep(delay);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -55,7 +59,7 @@ public class Controller implements IController {
 
 	}
 	
-	public int[] getPlayerPosition() {
+	public int[] getPlayerPositionition() {
 		int Py;
 		int Px;
 		int[] playerPos;
@@ -87,23 +91,34 @@ public class Controller implements IController {
 	private void setModel(final IModel model) {
 		this.model = model;
 	}
+	
 
 	public void orderPerform(final ControllerOrder controllerOrder) {
+		int[] PlayerPos = getPlayerPosition();
+		int xP = PlayerPos[0];
+		int yP = PlayerPos[1];
+		int oxP = xP;
+		int oyP = yP;
+		
 		switch (controllerOrder) {
 		case Left:
-			player.setX(player.getX() - 1);
+			xP -= 1;
 			break;
 		case Right:
-			player.setX(player.getX() + 1);
+			xP += 1;
 			break;
 		case Up:
-			player.setY(player.getY() - 1);
+			yP -= 1;
 			break;
 		case Down:
-			player.setY(player.getY() + 1);
+			yP += 1;
 			break;
 		default:
 			break;
+		}
+		if (entitys[yP][xP] == null) {
+			entitys[yP][xP] = entitys[oyP][oxP];
+			entitys[oyP][oxP] = null;
 		}
 	}
 	
