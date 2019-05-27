@@ -1,9 +1,9 @@
 package entity;
 
-public class rock extends Falling {
+public class Rock extends Falling {
 
-	public rock() {
-		super(true, 'O', 4);
+	public Rock() {
+		super(true, false, 'O', 4);
 	}
 
 }

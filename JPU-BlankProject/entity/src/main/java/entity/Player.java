@@ -8,7 +8,7 @@ public class Player extends Anime {
 	private ControllerOrder direction;
 
 	public Player() {
-		super(false, true, false, 'P', 1);
+		super(false, true, false, false, 'P', 3);
 	}
 	
 	public boolean isAlive() {
