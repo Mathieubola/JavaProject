@@ -11,7 +11,7 @@ import entity.Indestructible;
 import entity.Map;
 import entity.Portal;
 import entity.monstre;
-import entity.rock;
+import entity.Rock;
 
 public class DAOMap {
 
@@ -41,15 +41,14 @@ public Map find(final String name) {
 	Map map = new Map();
 	
 	try {
-		final String sql = "{call procBoulderDash(?)}";
+		final String sql = "{call ProcBoulderdashMap1(?)}";
 		final CallableStatement call = this.getConnection().prepareCall(sql);
 		call.setString(1,  name);
 		call.execute();
 		final ResultSet resultSet = call.getResultSet();
 		if (resultSet.first()) {
-			map = new Map(resultSet.getString("X"), resultSet.getInt("length"), resultSet.getInt("width"));
+			map = new Map(resultSet.getString("X"), resultSet.getInt("Length"), resultSet.getInt("Width"));
 		}
-		
 			int i = 0, j = 0;
 			
 			for(i = 0; i < map.getLength(); i++)
@@ -61,7 +60,7 @@ public Map find(final String name) {
 						map.element[j][i] = new Indestructible();
 						break;
 					case "O":
-						map.element[j][i] = new rock();
+						map.element[j][i] = new Rock();
 						break;
 					case "T":
 						map.element[j][i] = new Diamant();
@@ -75,6 +74,8 @@ public Map find(final String name) {
 					case "=":
 						map.element[j][i] = new Portal();
 						break;
+					default:
+						map.element[j][i] = null;
 					}
 					resultSet.next();
 				}
@@ -88,4 +89,3 @@ public Map find(final String name) {
 		return null;
 }
 }
-

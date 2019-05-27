@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Observable;
 
 import contract.IModel;
+import entity.Entity;
 import entity.Map;
 
 
@@ -15,8 +16,8 @@ public final class Model extends Observable implements IModel {
 		this.map = new Map();
 	}
 
-	public Map getMap() {
-		return this.map;
+	public Entity[][] getMap() {
+		return this.map.element;
 	}
 
 
