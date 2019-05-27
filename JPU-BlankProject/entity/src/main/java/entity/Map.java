@@ -1,12 +1,12 @@
 package entity;
 
 
-public class Map extends Entity {
+public class Map {
 
 	private String name;
 	private int length;
 	private int width;
-	private Entitys element[][];
+	public Entity element[][];
 	
 	public Map(final String name, final int length, final int width) {
 		this.setName(name);

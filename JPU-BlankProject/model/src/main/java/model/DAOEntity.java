@@ -5,14 +5,7 @@ import java.sql.SQLException;
 
 import entity.Entity;
 
-/**
- * The Class DAOEntity.
- *
- * @author Jean-Aymeric Diet
- *
- * @param <E>
- *          the element type
- */
+
 abstract class DAOEntity<E extends Entity> {
 
 	/** The connection. */

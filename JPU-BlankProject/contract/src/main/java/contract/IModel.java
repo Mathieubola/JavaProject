@@ -1,9 +1,17 @@
 package contract;
 
-import entity.Entity;
+import java.util.Observable;
+
+import entity.Map;
+
 
 public interface IModel {
-	
-	Entity[][] getMap(int nbMap);
-	
+
+
+	Map getMap();
+
+
+	void loadmap(String code);
+
+	Observable getObservable();
 }

@@ -5,30 +5,38 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import entity.Destructible;
+import entity.Diamant;
+import entity.Indestructible;
 import entity.Map;
+import entity.Portal;
+import entity.monstre;
+import entity.rock;
 
-abstract class DAOMap extends DAOEntity<Map> {
+public class DAOMap {
 
+	private final Connection connection;
+	
 	public DAOMap(final Connection connection) throws SQLException {
-		super(connection);
+		this.connection = connection;
 	}
 	
-	@Override
+	protected Connection getConnection() {
+		return this.connection;
+	}
+	
 	public boolean create(final Map entity) {
 		return false;
 	}
 	
-	@Override
 	public boolean delete(final Map entity) {
 		return false;
 	}
 	
-	@Override
 	public boolean update(final Map entity ) {
 		return false;
 	}
 
-@Override
 public Map find(final String name) {
 	Map map = new Map();
 	
@@ -39,17 +47,38 @@ public Map find(final String name) {
 		call.execute();
 		final ResultSet resultSet = call.getResultSet();
 		if (resultSet.first()) {
-			map = new Map(name, resultSet.getInt("length"), resultSet.getInt("widht"));
+			map = new Map(resultSet.getString("X"), resultSet.getInt("length"), resultSet.getInt("width"));
 		}
 		
 			int i = 0, j = 0;
 			
-			for(i = 0; i < element.length; i++)
+			for(i = 0; i < map.getLength(); i++)
 			{
-				for(j = 0; j < element.width; j++)
+				for(j = 0; j < map.getWidth(); j++)
 				{
-					
+					switch(resultSet.getString("X")) {
+					case "#":
+						map.element[j][i] = new Indestructible();
+						break;
+					case "O":
+						map.element[j][i] = new rock();
+						break;
+					case "T":
+						map.element[j][i] = new Diamant();
+						break;
+					case "_":
+						map.element[j][i] = new Destructible();
+						break;
+					case "@":
+						map.element[j][i] = new monstre();
+						break;
+					case "=":
+						map.element[j][i] = new Portal();
+						break;
+					}
+					resultSet.next();
 				}
+				resultSet.next();
 			}
 				
 		return map;
