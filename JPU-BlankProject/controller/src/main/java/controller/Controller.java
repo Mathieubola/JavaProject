@@ -17,7 +17,7 @@ public class Controller implements IController {
 	private int score = 0; //Score du joueur
 	private int delay = 30; //Delay entre les frames (30 fps -> 1000/30 = 29.333... ~= 30 ms)
 	
-	private Entity[][] entitys = new Entity[width][height]; //Tableau fixe contenant toute les entit� du tableau (les rocher, diamant et tt)
+	private Entity[][] entitys = new Entity[width][height]; //Tableau fixe contenant toute les entit� du tableau (les rocher, diamant et tt)
 	private Player player;
 
 	public Controller(final IView view, final IModel model) {
@@ -52,6 +52,22 @@ public class Controller implements IController {
 	
 	public void moveFallingObject() {
 		//Faire tomber les diams et les pierre
+		for(int y = 0; y < entitys.length; y++) {
+			for(int x = 0; x < entitys[y].length; x++) {
+				if(entitys[y][x] != null && entitys[y][x].isFalling() && entitys[y-1][x] == null) {
+					// si la pierre peut tombée directement vers le bas
+					entitys[y][x] = entitys[y-1][x];
+				}else if(entitys[y][x] != null && entitys[y][x].isFalling() && entitys[y][x-1] == null && entitys[y-1][x-1] == null) {
+					//si il y a du vide du coté gauche de la pierre
+					entitys[y][x] = entitys[y][x-1];
+				}else if(entitys[y][x] != null && entitys[y][x].isFalling() && entitys[y][x+1] == null && entitys[y-1][x+1] == null) {
+					//si il y a du vide du coté droit de la pierre
+					entitys[y][x] = entitys[y][x+1];
+				}
+
+			}
+		}
+		
 	}
 	
 	public void collision() {
