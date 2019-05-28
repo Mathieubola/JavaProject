@@ -18,7 +18,7 @@ public class Controller implements IController {
 	private int delay = 30; //Delay entre les frames (30 fps -> 1000/30 = 29.333... ~= 30 ms)
 	
 	private Entity[][] entitys = new Entity[width][height]; //Tableau fixe contenant toute les entit� du tableau (les rocher, diamant et tt)
-	private Player player;
+
 
 	public Controller(final IView view, final IModel model) {
 		this.setView(view);
