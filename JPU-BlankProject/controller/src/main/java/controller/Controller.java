@@ -2,9 +2,9 @@ package controller;
 
 import contract.ControllerOrder;
 import contract.IController;
+import contract.IEntity;
 import contract.IModel;
 import contract.IView;
-import entity.Entity;
 import entity.Player;
 
 public class Controller implements IController {
@@ -12,12 +12,11 @@ public class Controller implements IController {
 	private IView view;
 	private IModel model;
 	
-	private int width = 60; //Hauteur du terrain
-	private int height = 60; //Largeur du terrain
-	private int score = 0; //Score du joueur
+
+	public int score = 0; //Score du joueur
 	private int delay = 30; //Delay entre les frames (30 fps -> 1000/30 = 29.333... ~= 30 ms)
+	IEntity[][] entitys;
 	
-	private Entity[][] entitys = new Entity[width][height]; //Tableau fixe contenant toute les entit� du tableau (les rocher, diamant et tt)
 
 
 	public Controller(final IView view, final IModel model) {
@@ -30,8 +29,9 @@ public class Controller implements IController {
 	}
 	
 	public void start() {
-		view.getViewFrame().getViewPanel().setEntitys(entitys);
-		entitys = model.getMap(1);
+	    this.entitys = model.getMap();
+		//model.loadmap("X");
+		entitys = model.getMap();
 		
 		
 		while (getPlayerPosition().length == 2) {
@@ -50,25 +50,31 @@ public class Controller implements IController {
 		//En fonction de la direction
 	}
 	
-	public void moveFallingObject() {
-		//Faire tomber les diams et les pierre
-		for(int y = 0; y < entitys.length; y++) {
-			for(int x = 0; x < entitys[y].length; x++) {
-				if(entitys[y][x] != null && entitys[y][x].isFalling() && entitys[y-1][x] == null) {
-					// si la pierre peut tombée directement vers le bas
-					entitys[y][x] = entitys[y-1][x];
-				}else if(entitys[y][x] != null && entitys[y][x].isFalling() && entitys[y][x-1] == null && entitys[y-1][x-1] == null) {
-					//si il y a du vide du coté gauche de la pierre
-					entitys[y][x] = entitys[y][x-1];
-				}else if(entitys[y][x] != null && entitys[y][x].isFalling() && entitys[y][x+1] == null && entitys[y-1][x+1] == null) {
-					//si il y a du vide du coté droit de la pierre
-					entitys[y][x] = entitys[y][x+1];
-				}
-
-			}
-		}
-		
-	}
+    public void moveFallingObject() {
+        
+        for(int y = 0; y < entitys.length; y++) {
+            for(int x = 0; x < entitys[y].length; x++) {
+                if(entitys[y][x] != null && entitys[y][x].isFalling() && y < entitys.length-1 && entitys[y+1][x] == null) {
+                    entitys[y+1][x] = entitys[y][x];
+                    entitys[y][x] = null;
+                    
+                }else if(entitys[y][x] != null && entitys[y][x].isFalling() && y > 1 && x > 1 && entitys[y][x-1] == null && entitys[y-1][x-1] == null && entitys[y-1][x] != null && entitys[y-1][x].getSprite() == 'O') {
+                    entitys[y][x-1] = entitys[y][x];
+                    entitys[y][x] = null;
+                    
+                }else if(entitys[y][x] != null && entitys[y][x].isFalling() && y > 1 && x < entitys.length-1 && entitys[y][x+1] == null && entitys[y-1][x+1] == null && entitys[y-1][x] != null && entitys[y-1][x].getSprite() == 'O') {
+                    entitys[y][x+1] = entitys[y][x];
+                    entitys[y][x] = null;
+                    
+                }else if(entitys[y][x] != null && entitys[y][x].isFalling() && y < entitys.length-1 && entitys[y+1][x].isPlayer() == true) {
+                    Player player = (Player) entitys[y+1][x];
+                    player.setAlive(false);
+                    
+                }
+            }
+        }
+    }
+	
 	
 	public void collision() {
 		//Checker si on c'est pas pris un rochet sur la geul ou si on est pas sur un crystal ou un portail
@@ -91,7 +97,7 @@ public class Controller implements IController {
 	}
 	
 	public void updateAnimation() {
-		view.getViewFrame().getViewPanel().setEntitys(entitys);
+		view.getViewFrame().getViewPanel().setEntitys((IEntity[][]) entitys);
 		view.getViewFrame().getViewPanel().repaint();
 	}
 	
@@ -107,6 +113,7 @@ public class Controller implements IController {
 	
 
 	public void orderPerform(final ControllerOrder controllerOrder) {
+		view.getViewFrame().getViewPanel().setDirection(controllerOrder);
 		int[] PlayerPos = getPlayerPosition();
 		int xP = PlayerPos[0];
 		int yP = PlayerPos[1];
@@ -135,7 +142,7 @@ public class Controller implements IController {
 		} else {
 			if (entitys[yP][xP].isDigable()) {
 				if (entitys[yP][xP].getSprite() == 'T') {
-					score += 1;
+					score += 15;
 					view.getViewFrame().getViewPanel().setScore(score);
 				}
 				entitys[yP][xP] = entitys[oyP][oxP];
@@ -143,5 +150,6 @@ public class Controller implements IController {
 			}
 		}
 	}
-	
 }
+
+

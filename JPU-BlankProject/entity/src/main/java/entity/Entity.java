@@ -1,6 +1,7 @@
 package entity;
+import contract.IEntity;
 
-public abstract class Entity {
+public abstract class Entity implements IEntity{
 	
 	private boolean isAnimated;
 	private boolean isPushable;

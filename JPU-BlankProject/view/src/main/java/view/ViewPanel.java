@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -10,9 +11,12 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import contract.ControllerOrder;
+import contract.IEntity;
+import contract.IViewPanel;
 import entity.Entity;
 
-public class ViewPanel extends JPanel {
+public class ViewPanel extends JPanel implements IViewPanel {
 
 	private static final long serialVersionUID = 1L;
 	private int Zoom = 50;
@@ -22,9 +26,11 @@ public class ViewPanel extends JPanel {
 	private int yArea = 60;
 	
 	private int score = 0;
+	private ControllerOrder direction = ControllerOrder.Null;
+	private int directionLife;
 	
 	private ViewFrame viewFrame;
-	private Entity[][] entitys = new Entity[60][60];
+	private IEntity[][] entitys = (IEntity[][]) new Entity[60][60];
 	
 	private ArrayList<Image> img_Rocher;
 	private ArrayList<Image> img_Diamant;
@@ -32,6 +38,8 @@ public class ViewPanel extends JPanel {
 	private ArrayList<Image> img_Enemie_1;
 	private ArrayList<Image> img_Joueur_Right;
 	private ArrayList<Image> img_Joueur_Left;
+	private ArrayList<Image> img_Joueur_Up;
+	private ArrayList<Image> img_Joueur_Down;
 	private ArrayList<Image> img_Joueur_Mort;
 	private Image img_Joueur;
 	private Image img_Incassable;
@@ -46,6 +54,8 @@ public class ViewPanel extends JPanel {
 		img_Enemie_1 = new ArrayList<Image>();
 		img_Joueur_Right = new ArrayList<Image>();
 		img_Joueur_Left = new ArrayList<Image>();
+		img_Joueur_Up = new ArrayList<Image>();
+		img_Joueur_Down = new ArrayList<Image>();
 		img_Joueur_Mort = new ArrayList<Image>();
 		try {
 			img_Rocher.add(ImageIO.read(new File("Stone_0.png")));
@@ -76,6 +86,14 @@ public class ViewPanel extends JPanel {
 			img_Joueur_Left.add(ImageIO.read(new File("Player_Left_0.png")));
 			img_Joueur_Left.add(ImageIO.read(new File("Player_Left_1.png")));
 			img_Joueur_Left.add(ImageIO.read(new File("Player_Left_2.png")));
+			img_Joueur_Up.add(ImageIO.read(new File("Player_Up_0.png")));
+			img_Joueur_Up.add(ImageIO.read(new File("Player_Up_1.png")));
+			img_Joueur_Up.add(ImageIO.read(new File("Player_Up_2.png")));
+			img_Joueur_Up.add(ImageIO.read(new File("Player_Up_3.png")));
+			img_Joueur_Down.add(ImageIO.read(new File("Player_Down_0.png")));
+			img_Joueur_Down.add(ImageIO.read(new File("Player_Down_1.png")));
+			img_Joueur_Down.add(ImageIO.read(new File("Player_Down_2.png")));
+			img_Joueur_Down.add(ImageIO.read(new File("Player_Down_3.png")));
 			img_Joueur_Mort.add(ImageIO.read(new File("Player_dead_0.png")));
 			img_Joueur_Mort.add(ImageIO.read(new File("Player_dead_1.png")));
 			img_Joueur_Mort.add(ImageIO.read(new File("Player_dead_2.png")));
@@ -95,6 +113,12 @@ public class ViewPanel extends JPanel {
 		graphics.setColor(Color.black);
 		graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
+		if (directionLife > 0) {
+			directionLife--;
+		} else {
+			direction = ControllerOrder.Null;
+		}
+		
 		this.displayMap(graphics);
 		
 		this.displayScore(graphics);
@@ -106,6 +130,7 @@ public class ViewPanel extends JPanel {
 		graphics.setColor(Color.black);
 		graphics.fillRoundRect(this.getWidth() / 2 - Zoom * 2 +2, -1 * Zoom +2, Zoom * 4 -4, Zoom * 2 -4, Zoom / 2, Zoom / 2);
 		graphics.setColor(Color.white);
+		graphics.setFont(new Font("Arial", 15, 30));
 		graphics.drawString("Score : " + score, this.getWidth() / 2 - Zoom, Zoom / 2);
 	}
 	
@@ -144,7 +169,24 @@ public class ViewPanel extends JPanel {
 									sprite = img_Portal.get(entitys[y][x].update());
 									break;
 								case 'P':
-									sprite = img_Joueur;
+									switch (direction) {
+									case Left:
+										sprite = img_Joueur_Left.get(entitys[y][x].update());
+										break;
+									case Right:
+										sprite = img_Joueur_Right.get(entitys[y][x].update());
+										break;
+									case Up:
+										sprite = img_Joueur_Up.get(entitys[y][x].update());
+										break;
+									case Down:
+										sprite = img_Joueur_Down.get(entitys[y][x].update());
+										break;
+									default:
+										sprite = img_Joueur;
+										break;
+									}
+									
 									break;
 								}
 								if (entitys[y][x].getSprite() != ' ') {
@@ -160,14 +202,19 @@ public class ViewPanel extends JPanel {
 		}
 	}
 
-	public void setEntitys(Entity[][] entitys) {
+	public void setEntitys(IEntity[][] entitys) {
 		this.entitys = entitys;
+		
 	}
 	
 	public void setScore(int score) {
 		this.score = score;
 	}
-
+	public void setDirection(ControllerOrder direction) {
+		this.direction = direction;
+		directionLife = 30;
+	}
+	
 	public int getZoom() {
 		return Zoom;
 	}
@@ -183,5 +230,7 @@ public class ViewPanel extends JPanel {
 	public int getyArea() {
 		return yArea;
 	}
+
+
 	
 }

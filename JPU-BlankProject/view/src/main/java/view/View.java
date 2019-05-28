@@ -8,10 +8,11 @@ import contract.ControllerOrder;
 import contract.IController;
 import contract.IModel;
 import contract.IView;
+import contract.IViewFrame;
 
 public class View implements IView, Runnable {
 	
-	private final ViewFrame viewFrame;
+	private final IViewFrame viewFrame;
 	static HashMap<Integer, ControllerOrder> keyCodeControllerOrder = new HashMap<Integer, ControllerOrder>();
 	
 	public View(final IModel model) {
@@ -44,7 +45,7 @@ public class View implements IView, Runnable {
 		this.viewFrame.setController(controller);
 	}
 	
-	public ViewFrame getViewFrame() {
+	public IViewFrame getViewFrame() {
 		return viewFrame;
 	}
 

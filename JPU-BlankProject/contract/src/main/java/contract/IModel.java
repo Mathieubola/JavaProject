@@ -7,11 +7,11 @@ import entity.Entity;
 
 public interface IModel {
 
-
+	void loadmap(String code);
+	Observable getObservable();
 	Entity[][] getMap();
 
 
-	void loadmap(String code);
 
-	Observable getObservable();
+	
 }

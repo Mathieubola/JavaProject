@@ -10,8 +10,9 @@ import javax.swing.JOptionPane;
 
 import contract.IController;
 import contract.IModel;
+import contract.IViewFrame;
 
-public class ViewFrame extends JFrame implements KeyListener {
+public class ViewFrame extends JFrame implements KeyListener,IViewFrame {
 
 	private IModel model;
 	private IController controller;
@@ -41,7 +42,7 @@ public class ViewFrame extends JFrame implements KeyListener {
 		return this.controller;
 	}
 	
-	protected void setController(final IController controller) {
+	public void setController(final IController controller) {
 		this.controller = controller;
 	}
 	
