@@ -8,7 +8,6 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import contract.ControllerOrder;
 import contract.IController;
 import contract.IModel;
 
