@@ -210,15 +210,6 @@ public class Controller implements IController {
 						}	
 						break;
 					}
-					/*
-					 * if(direction == 0 && entitys[y-1][x] == null && entitys[y][x-1] != null) {
-					     entitys[y-1][x] = entitys[y][x];
-	                     entitys[y][x] = null;
-					
-					    if(direction == 0 && entitys[y][x-1] == null) {
-						
-					}
-					 */
 
 					
 				}

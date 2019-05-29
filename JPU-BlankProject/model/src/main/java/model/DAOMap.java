@@ -57,8 +57,7 @@ public Entity[][] getMapsql() {
 			map = new Map(myRs.getString("X"), myRs.getInt("Height"), myRs.getInt("Width"));
 		}
 		
-		//System.out.println(map.getHeight());
-		//System.out.println(map.element.length);
+
 		for(int y = 0; y < map.getHeight(); y++) {
 			for(int x = y == 0 ? 1 : 0; x < map.getWidth(); x++) {
 				if (y == 1 && x == 0) {
@@ -90,15 +89,9 @@ public Entity[][] getMapsql() {
 					map.element[y][x] = null;
 				}
 				myRs.next();
-				//System.out.println("Ligne numéro : " + i + " || Colonne numéro : " + j + " contient :" + oui[j][i] );
 			}
 			
 		}
-		/*for(int i = 0; i < 22; i++) {
-			for(int j = 0; j < 39; j++)	{
-System.out.println("Ligne numéro : " + i + " || Colonne numéro : " + j + " contient :" + map.element[i][j] );
-			}
-		}*/
 		return map.element;
 		} catch (final SQLException e) {
 			e.printStackTrace();
