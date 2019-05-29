@@ -12,7 +12,7 @@ public abstract class Anime extends Entity {
 	}
 	
 	public int update() {
-		frame = frame > maxFrame - 0.1 ? 0 : frame + step;
+		frame = frame > maxFrame - 0.2 ? 0 : frame + step;
 		return (int) frame;
 	}
 	

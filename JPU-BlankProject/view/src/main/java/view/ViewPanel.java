@@ -47,6 +47,7 @@ public class ViewPanel extends JPanel implements IViewPanel {
 	private Image img_Incassable;
 	private Image img_Terre;
 	private Image img_Terre_Bg;
+	private Image img_Wallpaper;
 
 	public ViewPanel(final ViewFrame viewFrame) {
 		this.setViewFrame(viewFrame);
@@ -60,6 +61,8 @@ public class ViewPanel extends JPanel implements IViewPanel {
 		img_Joueur_Down = new ArrayList<Image>();
 		img_Joueur_Mort = new ArrayList<Image>();
 		try {
+			img_Wallpaper = ImageIO.read(new File("Wallpaper.jpg"));
+			
 			img_Rocher.add(ImageIO.read(new File("Stone_0.png")));
 			img_Rocher.add(ImageIO.read(new File("Stone_1.png")));
 			img_Rocher.add(ImageIO.read(new File("Stone_2.png")));
@@ -136,8 +139,8 @@ public class ViewPanel extends JPanel implements IViewPanel {
 		graphics.setColor(Color.black);
 		graphics.fillRoundRect(this.getWidth() / 2 - Zoom * 2 +2, -1 * Zoom +2, Zoom * 4 -4, Zoom * 2 -4, Zoom / 2, Zoom / 2);
 		graphics.setColor(Color.white);
-		graphics.setFont(new Font("Arial", 15, 30));
-		graphics.drawString("Score : " + score, this.getWidth() / 2 - Zoom, Zoom / 2);
+		graphics.setFont(new Font("Arial", 15, 25));
+		graphics.drawString("Score : " + score, this.getWidth() / 2 - Zoom - 10, Zoom / 2);
 	}
 	
 	private void displayMap(Graphics graphics) {
@@ -220,7 +223,8 @@ public class ViewPanel extends JPanel implements IViewPanel {
 	public void displayEcranMort(Graphics graphics) {
 		graphics.setColor(Color.white);
 		graphics.setFont(new Font("Arial", 15, 50));
-		graphics.drawString("Vous ete mort", this.getWidth()/2-150, this.getHeight()/2-25);
+		graphics.drawString("U R dad", this.getWidth()/2-150, this.getHeight()/2-25);
+		graphics.drawImage(img_Wallpaper, 0, 0, 750, 750, this);
 	}
 
 	public void setEntitys(IEntity[][] entitys) {
