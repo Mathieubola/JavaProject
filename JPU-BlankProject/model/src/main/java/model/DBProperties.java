@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import contract.IDBProperties;
+
 /**
  * The Class DBProperties.
  *
  * @author Jean-Aymeric Diet
  */
-class DBProperties extends Properties {
+class DBProperties extends Properties implements IDBProperties {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5289057445894568927L;

@@ -1,9 +1,9 @@
 package entity;
 
-public class Portal extends motionless {
+public class Portal extends Anime {
 
 	public Portal() {
-		super(true, '=');
+		super(false, false, false, true, '=', 4);
 	}
 
 }

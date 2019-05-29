@@ -15,6 +15,7 @@ import contract.ControllerOrder;
 import contract.IEntity;
 import contract.IViewPanel;
 import entity.Entity;
+import entity.Player;
 
 public class ViewPanel extends JPanel implements IViewPanel {
 
@@ -26,6 +27,7 @@ public class ViewPanel extends JPanel implements IViewPanel {
 	private int yArea = 60;
 	
 	private int score = 0;
+	private double MortStep = 0.0;
 	private ControllerOrder direction = ControllerOrder.Null;
 	private int directionLife;
 	
@@ -119,9 +121,13 @@ public class ViewPanel extends JPanel implements IViewPanel {
 			direction = ControllerOrder.Null;
 		}
 		
-		this.displayMap(graphics);
-		
-		this.displayScore(graphics);
+		if ((int) MortStep < 6) {
+			this.displayMap(graphics);
+			
+			this.displayScore(graphics);
+		} else {
+			this.displayEcranMort(graphics);
+		}
 	}
 	
 	private void displayScore(Graphics graphics) {
@@ -169,24 +175,32 @@ public class ViewPanel extends JPanel implements IViewPanel {
 									sprite = img_Portal.get(entitys[y][x].update());
 									break;
 								case 'P':
-									switch (direction) {
-									case Left:
-										sprite = img_Joueur_Left.get(entitys[y][x].update());
-										break;
-									case Right:
-										sprite = img_Joueur_Right.get(entitys[y][x].update());
-										break;
-									case Up:
-										sprite = img_Joueur_Up.get(entitys[y][x].update());
-										break;
-									case Down:
-										sprite = img_Joueur_Down.get(entitys[y][x].update());
-										break;
-									default:
-										sprite = img_Joueur;
-										break;
+									int[] pp = viewFrame.getController().getPlayerPosition();
+									Player player = (Player) entitys[pp[1]][pp[0]];
+									if (player.isAlive()) {
+										switch (direction) {
+										case Left:
+											sprite = img_Joueur_Left.get(entitys[y][x].update());
+											break;
+										case Right:
+											sprite = img_Joueur_Right.get(entitys[y][x].update());
+											break;
+										case Up:
+											sprite = img_Joueur_Up.get(entitys[y][x].update());
+											break;
+										case Down:
+											sprite = img_Joueur_Down.get(entitys[y][x].update());
+											break;
+										default:
+											sprite = img_Joueur;
+											break;
+										}
+									} else {
+										if ((int) MortStep < 6) {
+											sprite = img_Joueur_Mort.get((int) MortStep);
+											MortStep += 0.1;
+										}
 									}
-									
 									break;
 								}
 								if (entitys[y][x].getSprite() != ' ') {
@@ -200,6 +214,13 @@ public class ViewPanel extends JPanel implements IViewPanel {
 				
 			}
 		}
+	}
+		
+		
+	public void displayEcranMort(Graphics graphics) {
+		graphics.setColor(Color.white);
+		graphics.setFont(new Font("Arial", 15, 50));
+		graphics.drawString("Vous ete mort", this.getWidth()/2-150, this.getHeight()/2-25);
 	}
 
 	public void setEntitys(IEntity[][] entitys) {

@@ -2,14 +2,14 @@ package contract;
 
 import java.util.Observable;
 
-import entity.Entity;
+import contract.IEntity;;
 
 
 public interface IModel {
 
 	void loadmap(String code);
 	Observable getObservable();
-	Entity[][] getMap();
+	IEntity[][] getMap();
 
 
 

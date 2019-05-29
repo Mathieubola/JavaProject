@@ -2,13 +2,16 @@ package model;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import entity.Destructible;
 import entity.Diamant;
+import entity.Entity;
 import entity.Indestructible;
 import entity.Map;
+import entity.Player;
 import entity.Portal;
 import entity.monstre;
 import entity.Rock;
@@ -37,55 +40,69 @@ public class DAOMap {
 		return false;
 	}
 
-public Map find(final String name) {
+public Entity[][] getMapsql() {
 	Map map = new Map();
 	
+	Connection myConn = null;
+	CallableStatement myStmt = null;
+	ResultSet myRs = null;
+
 	try {
-		final String sql = "{call ProcBoulderdashMap1(?)}";
-		final CallableStatement call = this.getConnection().prepareCall(sql);
-		call.setString(1,  name);
-		call.execute();
-		final ResultSet resultSet = call.getResultSet();
-		if (resultSet.first()) {
-			map = new Map(resultSet.getString("X"), resultSet.getInt("Length"), resultSet.getInt("Width"));
+
+		myConn = DriverManager.getConnection("jdbc:mysql://localhost/jpublankproject?autoReconnect=true&useSSL=false","root","");
+		myStmt = myConn.prepareCall("{call ProcBoulderdashMap1()}");
+		myRs = myStmt.executeQuery();
+		
+		if (myRs.first()) {
+			map = new Map(myRs.getString("X"), myRs.getInt("Height"), myRs.getInt("Width"));
 		}
-			int i = 0, j = 0;
-			
-			for(i = 0; i < map.getLength(); i++)
-			{
-				for(j = 0; j < map.getWidth(); j++)
-				{
-					switch(resultSet.getString("X")) {
-					case "#":
-						map.element[j][i] = new Indestructible();
-						break;
-					case "O":
-						map.element[j][i] = new Rock();
-						break;
-					case "T":
-						map.element[j][i] = new Diamant();
-						break;
-					case "_":
-						map.element[j][i] = new Destructible();
-						break;
-					case "@":
-						map.element[j][i] = new monstre();
-						break;
-					case "=":
-						map.element[j][i] = new Portal();
-						break;
-					default:
-						map.element[j][i] = null;
-					}
-					resultSet.next();
+		
+		//System.out.println(map.getHeight());
+		//System.out.println(map.element.length);
+		for(int y = 0; y < map.getHeight(); y++) {
+			for(int x = y == 0 ? 1 : 0; x < map.getWidth(); x++) {
+				if (y == 1 && x == 0) {
+					map.element[0][0] = new Indestructible();
 				}
-				resultSet.next();
+				switch(myRs.getString("X")) {
+				case "#":
+					map.element[y][x] = new Indestructible();
+					break;
+				case "O":
+					map.element[y][x] = new Rock();
+					break;
+				case "T":
+					map.element[y][x] = new Diamant();
+					break;
+				case "_":
+					map.element[y][x] = new Destructible();
+					break;
+				case "@":
+					map.element[y][x] = new monstre();
+					break;
+				case "=":
+					map.element[y][x] = new Portal();
+					break;
+				case "P":
+					map.element[y][x] = new Player();
+					break;
+				default:
+					map.element[y][x] = null;
+				}
+				myRs.next();
+				//System.out.println("Ligne numéro : " + i + " || Colonne numéro : " + j + " contient :" + oui[j][i] );
 			}
-				
-		return map;
+			
+		}
+		/*for(int i = 0; i < 22; i++) {
+			for(int j = 0; j < 39; j++)	{
+System.out.println("Ligne numéro : " + i + " || Colonne numéro : " + j + " contient :" + map.element[i][j] );
+			}
+		}*/
+		return map.element;
 		} catch (final SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+	return map.element;
 }
 }

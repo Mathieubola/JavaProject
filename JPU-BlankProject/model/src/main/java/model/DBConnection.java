@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import contract.IDBConnection;
 
-final class DBConnection {
+
+final class DBConnection implements IDBConnection {
 	/** The instance. */
 	private static DBConnection	INSTANCE	= null;
 

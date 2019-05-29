@@ -68,7 +68,7 @@ public class Controller implements IController {
                     
                 }else if(entitys[y][x] != null && entitys[y][x].isFalling() && y < entitys.length-1 && entitys[y+1][x].isPlayer() == true) {
                     Player player = (Player) entitys[y+1][x];
-                    player.setAlive(false);
+                    //player.setAlive(false);
                     
                 }
             }
@@ -83,7 +83,7 @@ public class Controller implements IController {
 	
 	public int[] getPlayerPosition() {
 		int[] playerPos = new int[2];
-		for(int y = 0; y < entitys.length; y++) {
+		for(int y = 0; entitys != null && y < entitys.length; y++) {
 			for(int x = 0; x < entitys[y].length; x++) {
 				if (entitys[y][x] != null) {
 					if(entitys[y][x].isPlayer() == true) {

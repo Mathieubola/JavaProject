@@ -1,18 +1,20 @@
 package entity;
 
-
 public class Map {
 
 	private String name;
-	private int length;
+	private int height;
 	private int width;
-	public Entity element[][];
+	public Entity[][] element;
 	
-	public Map(final String name, final int length, final int width) {
+	public Map(final String name, final int height, final int width) {
 		this.setName(name);
-		this.setLength(length);
+		this.setHeight(height);
 		this.setWidth(width);
+		element = new Entity[height][width];
+		
 	}
+	
 	
 	public Map() {
 		this("", 0, 0);
@@ -26,12 +28,12 @@ public class Map {
 		this.name = name;
 	}
 
-	public int getLength() {
-		return length;
+	public int getHeight() {
+		return height;
 	}
 
-	public void setLength(int length) {
-		this.length = length;
+	public void setHeight(int height) {
+		this.height = height;
 	}
 
 	public int getWidth() {
