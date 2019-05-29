@@ -51,6 +51,8 @@ public class Controller implements IController {
 	 */
 	IEntity[][] entitys;
 	
+	private int nbMap = 1;
+	
 
 	/**
 	 * <b>The controller of the class</b>
@@ -74,9 +76,8 @@ public class Controller implements IController {
 	 * 
 	 */
 	public void start() {
-	    this.entitys = model.getMap();
 		//model.loadmap("X");
-		entitys = model.getMap();
+		entitys = model.getMap(nbMap);
 		
 		
 		while (getPlayerPosition().length == 2) {
@@ -315,6 +316,9 @@ public class Controller implements IController {
 				if (entitys[yP][xP].getSprite() == 'T') {
 					score += 15;
 					view.getViewFrame().getViewPanel().setScore(score);
+				} else if (entitys[yP][xP].getSprite() == '=') {
+					nbMap++;
+					entitys = model.getMap(nbMap);
 				}
 				entitys[yP][xP] = entitys[oyP][oxP];
 				entitys[oyP][oxP] = null;

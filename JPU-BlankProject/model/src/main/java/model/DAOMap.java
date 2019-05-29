@@ -40,7 +40,7 @@ public class DAOMap {
 		return false;
 	}
 
-public Entity[][] getMapsql() {
+public Entity[][] getMapsql(int nbMap) {
 	Map map = new Map();
 	
 	Connection myConn = null;
@@ -50,7 +50,7 @@ public Entity[][] getMapsql() {
 	try {
 
 		myConn = DriverManager.getConnection("jdbc:mysql://localhost/jpublankproject?autoReconnect=true&useSSL=false","root","");
-		myStmt = myConn.prepareCall("{call ProcBoulderdashMap2()}");
+		myStmt = myConn.prepareCall("{call ProcBoulderdashMap" + nbMap + "()}");
 		myRs = myStmt.executeQuery();
 		
 		if (myRs.first()) {

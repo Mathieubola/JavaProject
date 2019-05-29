@@ -9,7 +9,7 @@ public interface IModel {
 
 	void loadmap(String code);
 	Observable getObservable();
-	IEntity[][] getMap();
+	IEntity[][] getMap(int nbMab);
 
 
 

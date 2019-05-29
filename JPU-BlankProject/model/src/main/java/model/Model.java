@@ -19,10 +19,10 @@ public final class Model extends Observable implements IModel {
 		this.map = new Map();
 	}
 
-	public Entity[][] getMap() {
+	public Entity[][] getMap(int nbMap) {
 			try {
 				DAOMap daomap = new DAOMap(DBConnection.getInstance().getConnection());
-				oui = daomap.getMapsql();
+				oui = daomap.getMapsql(nbMap);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
