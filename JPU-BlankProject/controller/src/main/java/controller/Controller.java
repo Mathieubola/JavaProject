@@ -5,6 +5,7 @@ import contract.IController;
 import contract.IEntity;
 import contract.IModel;
 import contract.IView;
+import entity.Falling;
 import entity.Player;
 import entity.monstre;
 
@@ -109,30 +110,30 @@ public class Controller implements IController {
 	 * 
 	 * @see #entitys
 	 */
-    public void moveFallingObject() {
-        
-        for(int y = 0; y < entitys.length; y++) {
-            for(int x = 0; x < entitys[y].length; x++) {
-                if(entitys[y][x] != null && entitys[y][x].isFalling() && y < entitys.length-1 && entitys[y+1][x] == null) {
-                    entitys[y+1][x] = entitys[y][x];
-                    entitys[y][x] = null;
-                    
-                }else if(entitys[y][x] != null && entitys[y][x].isFalling() && y > 1 && x > 1 && entitys[y][x-1] == null && entitys[y-1][x-1] == null && entitys[y-1][x] != null && entitys[y-1][x].getSprite() == 'O') {
-                    entitys[y][x-1] = entitys[y][x];
-                    entitys[y][x] = null;
-                    
-                }else if(entitys[y][x] != null && entitys[y][x].isFalling() && y > 1 && x < entitys.length-1 && entitys[y][x+1] == null && entitys[y-1][x+1] == null && entitys[y-1][x] != null && entitys[y-1][x].getSprite() == 'O') {
-                    entitys[y][x+1] = entitys[y][x];
-                    entitys[y][x] = null;
-                    
-                }else if(entitys[y][x] != null && entitys[y][x].isFalling() && y < entitys.length-1 && entitys[y+1][x].isPlayer() == true) {
-                    Player player = (Player) entitys[y+1][x];
-                    player.setAlive(false);
-                    
-                }
-            }
-        }
-    }
+	public void moveFallingObject() {
+	    for(int y = 0; y < entitys.length; y++) {
+	        for(int x = 0; x < entitys[y].length; x++) {
+	            if(entitys[y][x] != null && entitys[y][x].isFalling()) {
+	            	Falling falling = (Falling) entitys[y][x];
+	                if(y < entitys.length-1 && entitys[y+1][x] == null) { // chute tout droit
+	                    entitys[y+1][x] = entitys[y][x];
+	                    entitys[y][x] = null;
+	                    falling.setKilling(true);
+	                }else if(y > 1 && x > 1 && entitys[y][x-1] == null && entitys[y-1][x-1] == null && entitys[y-1][x] != null && entitys[y-1][x].getSprite() == 'O') {
+	                    entitys[y][x-1] = entitys[y][x]; //	
+	                    entitys[y][x] = null;	                    
+	                }else if(y > 1 && x < entitys.length-1 && entitys[y][x+1] == null && entitys[y-1][x+1] == null && entitys[y-1][x] != null && entitys[y-1][x].getSprite() == 'O') {
+	                    entitys[y][x+1] = entitys[y][x];
+	                    entitys[y][x] = null;
+	                }else if(y < entitys.length-1 && entitys[y+1][x].isPlayer() == true && falling.getKilling() == true) {
+	                    Player player = (Player) entitys[y+1][x];
+	                    player.setAlive(false);
+	                }
+	            }
+	        }
+	    }
+	}
+	
 	
 	/**
 	 * not used
