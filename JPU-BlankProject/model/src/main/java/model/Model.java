@@ -11,6 +11,8 @@ import entity.Map;
 
 
 public final class Model extends Observable implements IModel {
+	
+	@SuppressWarnings("unused")
 	private Map map;
 
 	Entity[][] oui;

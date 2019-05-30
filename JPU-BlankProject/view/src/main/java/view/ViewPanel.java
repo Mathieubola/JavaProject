@@ -168,7 +168,7 @@ public class ViewPanel extends JPanel implements IViewPanel {
 	}
 	
 	private void displayMap(Graphics graphics) {
-		int[] PlayerPos = viewFrame.getController().getPlayerPosition();
+		int [] PlayerPos = viewFrame.getControllerplayer().getPlayerPosition(entitys);
 		
 		if (entitys.length > 0 && PlayerPos.length == 2) {
 			if (entitys[0].length > 0) {
@@ -202,7 +202,10 @@ public class ViewPanel extends JPanel implements IViewPanel {
 									sprite = img_Portal.get(entitys[y][x].update());
 									break;
 								case 'P':
-									int[] pp = viewFrame.getController().getPlayerPosition();
+									int[] pp = viewFrame.getControllerplayer().getPlayerPosition(entitys);
+									if (!entitys[pp[1]][pp[0]].isPlayer()) {
+										break;
+									}
 									Player player = (Player) entitys[pp[1]][pp[0]];
 									if (player.isAlive()) {
 										switch (direction) {

@@ -8,16 +8,22 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import contract.IController;
+import contract.IControllergame;
+import contract.IControllerother;
+import contract.IControllerplayer;
+import contract.IEntity;
 import contract.IModel;
 import contract.IViewFrame;
 import entity.Player;
 
-public class ViewFrame extends JFrame implements KeyListener,IViewFrame {
+public class ViewFrame extends JFrame implements KeyListener, IViewFrame {
 
 	private IModel model;
-	private IController controller;
+	private IControllergame controllergame;
+	private IControllerother controllerother;
+	private IControllerplayer controllerplayer;
 	private ViewPanel viewPanel;
+	private IEntity[][] entitys;
 	private static final long serialVersionUID = -697358409737458175L;
 	
 	public ViewFrame(final IModel model) throws HeadlessException {
@@ -39,12 +45,28 @@ public class ViewFrame extends JFrame implements KeyListener,IViewFrame {
 		this.buildViewFrame(model);
 	}
 	
-	protected IController getController() {
-		return this.controller;
+	protected IControllergame getControllergame() {
+		return this.controllergame;
 	}
 	
-	public void setController(final IController controller) {
-		this.controller = controller;
+	public void setControllergame(final IControllergame controllergame) {
+		this.controllergame= controllergame;
+	}
+	
+	protected IControllerother getControllerother() {
+		return this.controllerother;
+	}
+	
+	public void setControllerother(final IControllerother controllerother) {
+		this.controllerother = controllerother;
+	}
+	
+	protected IControllerplayer getControllerplayer() {
+		return this.controllerplayer;
+	}
+	
+	public void setControllerplayer(final IControllerplayer controllerplayer) {
+		this.controllerplayer = controllerplayer;
 	}
 	
 	protected IModel getModel() {
@@ -74,12 +96,16 @@ public class ViewFrame extends JFrame implements KeyListener,IViewFrame {
 		return viewPanel;
 	}
 	
+
 	public void keyPressed(KeyEvent e) {
-		int[] playerPos = controller.getPlayerPosition();
-		Player player = (Player) ( viewPanel.getEntitys()[playerPos[1]][playerPos[0]] );
+		int[] playerPos = controllerplayer.getPlayerPosition(entitys);
+		Player player = (Player) ( viewPanel.getEntitys()[playerPos[1]][playerPos[0]]);
 		if (player.isAlive()) {
-			this.getController().orderPerform(View.keyCodeToControllerOrder(e.getKeyCode()));
+			this.getControllerplayer().orderPerform(View.keyCodeToControllerOrder(e.getKeyCode()), entitys);
 		}
+		
+		
+		
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -89,5 +115,12 @@ public class ViewFrame extends JFrame implements KeyListener,IViewFrame {
 	public void keyTyped(KeyEvent e) {
 		
 	}
+	
+	public void setEntity(IEntity[][] entitys) {
+		this.entitys = entitys;
+	}
+
+
+
 
 }

@@ -5,7 +5,9 @@ import java.util.HashMap;
 import javax.swing.SwingUtilities;
 
 import contract.ControllerOrder;
-import contract.IController;
+import contract.IControllergame;
+import contract.IControllerother;
+import contract.IControllerplayer;
 import contract.IModel;
 import contract.IView;
 import contract.IViewFrame;
@@ -41,9 +43,17 @@ public class View implements IView, Runnable {
 		this.viewFrame.printMessage(message);
 	}
 	
-	public void setController(final IController controller) {
-		this.viewFrame.setController(controller);
+	public void setControllergame(final IControllergame controllergame) {
+		this.viewFrame.setControllergame(controllergame);
 	}
+	public void setControllerother(final IControllerother controllerother) {
+		this.viewFrame.setControllerother(controllerother);
+	}
+	public void setControllerplayer(final IControllerplayer controllerplayer) {
+		this.viewFrame.setControllerplayer(controllerplayer);
+	}
+
+
 	
 	public IViewFrame getViewFrame() {
 		return viewFrame;
