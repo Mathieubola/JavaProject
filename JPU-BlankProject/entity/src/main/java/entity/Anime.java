@@ -1,10 +1,5 @@
 package entity;
 
-/**
- * 
- * @see Entity
- *
- */
 public abstract class Anime extends Entity {
 	
 	private double frame = 0;
