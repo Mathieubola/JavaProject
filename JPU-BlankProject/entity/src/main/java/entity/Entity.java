@@ -129,6 +129,9 @@ public abstract class Entity implements IEntity{
 		return isDigable;
 	}
 
+	/**
+	 * 
+	 */
 	public int update() {
 		return -1;
 	}
