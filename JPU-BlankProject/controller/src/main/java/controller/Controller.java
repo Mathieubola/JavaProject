@@ -54,6 +54,8 @@ public class Controller implements IController {
 	
 	private int nbMap = 1;
 	
+	private int TempoPush = 0;
+	
 
 	/**
 	 * <b>The controller of the class</b>
@@ -110,30 +112,32 @@ public class Controller implements IController {
 	 * 
 	 * @see #entitys
 	 */
+
 	public void moveFallingObject() {
-	    for(int y = 0; y < entitys.length; y++) {
-	        for(int x = 0; x < entitys[y].length; x++) {
-	            if(entitys[y][x] != null && entitys[y][x].isFalling()) {
-	            	Falling falling = (Falling) entitys[y][x];
-	                if(y < entitys.length-1 && entitys[y+1][x] == null) { // chute tout droit
-	                    entitys[y+1][x] = entitys[y][x];
-	                    entitys[y][x] = null;
-	                    falling.setKilling(true);
-	                }else if(y > 1 && x > 1 && entitys[y][x-1] == null && entitys[y-1][x-1] == null && entitys[y-1][x] != null && entitys[y-1][x].getSprite() == 'O') {
-	                    entitys[y][x-1] = entitys[y][x]; //	
-	                    entitys[y][x] = null;	                    
-	                }else if(y > 1 && x < entitys.length-1 && entitys[y][x+1] == null && entitys[y-1][x+1] == null && entitys[y-1][x] != null && entitys[y-1][x].getSprite() == 'O') {
-	                    entitys[y][x+1] = entitys[y][x];
-	                    entitys[y][x] = null;
-	                }else if(y < entitys.length-1 && entitys[y+1][x].isPlayer() == true && falling.getKilling() == true) {
-	                    Player player = (Player) entitys[y+1][x];
-	                    player.setAlive(false);
-	                }
-	            }
-	        }
-	    }
-	}
-	
+        for(int y = 0; y < entitys.length; y++) {
+            for(int x = 0; x < entitys[y].length; x++) {
+                if(entitys[y][x] != null && entitys[y][x].isFalling()) {
+                    Falling falling = (Falling) entitys[y][x];
+                    if(y < entitys.length-1 && entitys[y+1][x] == null) { // chute tout droit
+                        entitys[y+1][x] = entitys[y][x];
+                        entitys[y][x] = null;
+                        falling.setKilling(true);
+                    }else if(y > 1 && x > 1 && entitys[y][x-1] == null && entitys[y-1][x-1] == null && entitys[y-1][x] != null && entitys[y-1][x].getSprite() == 'O') {
+                        entitys[y][x-1] = entitys[y][x]; //    
+                        entitys[y][x] = null;                        
+                    }else if(y > 1 && x < entitys.length-1 && entitys[y][x+1] == null && entitys[y-1][x+1] == null && entitys[y-1][x] != null && entitys[y-1][x].getSprite() == 'O') {
+                        entitys[y][x+1] = entitys[y][x];
+                        entitys[y][x] = null;
+                    }else if(y < entitys.length-1 && entitys[y+1][x].isPlayer() == true && falling.getKilling() == true) {
+                        Player player = (Player) entitys[y+1][x];
+                        player.setAlive(false);
+                    } else if (entitys[y+1][x] != null && !entitys[y+1][x].isPlayer()) {
+                        falling.setKilling(false);
+                    }
+                }
+            }
+        }
+    }
 	
 	/**
 	 * not used
@@ -309,6 +313,7 @@ public class Controller implements IController {
 		default:
 			break;
 		}
+		
 		if (entitys[yP][xP] == null) {
 			entitys[yP][xP] = entitys[oyP][oxP];
 			entitys[oyP][oxP] = null;
@@ -317,10 +322,23 @@ public class Controller implements IController {
 				if (entitys[yP][xP].getSprite() == 'T') {
 					score += 15;
 					view.getViewFrame().getViewPanel().setScore(score);
-				} else if (entitys[yP][xP].getSprite() == '=') {
+				} else if (score > 15 * 5 && entitys[yP][xP].getSprite() == '=') {
 					nbMap++;
+					score = 0;
 					entitys = model.getMap(nbMap);
 				}
+				if (score > 15 * 5 || entitys[yP][xP] != null && entitys[yP][xP].getSprite() != '=') {
+					entitys[yP][xP] = entitys[oyP][oxP];
+					entitys[oyP][oxP] = null;
+				}
+			}
+		}
+		
+		if (entitys[yP][xP] != null && entitys[yP][xP].isPushable() && entitys[yP*2-oyP][xP*2-oxP] == null) {
+			TempoPush++;
+			if (TempoPush > 20) {
+				TempoPush = 0;
+				entitys[yP*2-oyP][xP*2-oxP] = entitys[yP][xP];
 				entitys[yP][xP] = entitys[oyP][oxP];
 				entitys[oyP][oxP] = null;
 			}

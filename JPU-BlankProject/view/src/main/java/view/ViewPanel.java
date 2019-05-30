@@ -229,7 +229,10 @@ public class ViewPanel extends JPanel implements IViewPanel {
 
 	public void setEntitys(IEntity[][] entitys) {
 		this.entitys = entitys;
-		
+	}
+	
+	public IEntity[][] getEntitys() {
+		return entitys;
 	}
 	
 	public void setScore(int score) {

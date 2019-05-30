@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import contract.IController;
 import contract.IModel;
 import contract.IViewFrame;
+import entity.Player;
 
 public class ViewFrame extends JFrame implements KeyListener,IViewFrame {
 
@@ -74,7 +75,11 @@ public class ViewFrame extends JFrame implements KeyListener,IViewFrame {
 	}
 	
 	public void keyPressed(KeyEvent e) {
-		this.getController().orderPerform(View.keyCodeToControllerOrder(e.getKeyCode()));
+		int[] playerPos = controller.getPlayerPosition();
+		Player player = (Player) ( viewPanel.getEntitys()[playerPos[1]][playerPos[0]] );
+		if (player.isAlive()) {
+			this.getController().orderPerform(View.keyCodeToControllerOrder(e.getKeyCode()));
+		}
 	}
 
 	public void keyReleased(KeyEvent e) {

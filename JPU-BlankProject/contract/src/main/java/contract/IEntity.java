@@ -9,6 +9,8 @@ public interface IEntity {
 	char getSprite();
 
 	boolean isDigable();
+	
+	boolean isPushable();
 
 	int update();
 
