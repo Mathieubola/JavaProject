@@ -7,8 +7,9 @@ public interface IControllerplayer {
 	void collision();
 
 	void orderPerform(ControllerOrder keyCodeToControllerOrder, IEntity[][] entity);
+
+	IEntity[][] getEntity();
 	
-	
-	
+	void setEntity(IEntity[][] entitys);
 
 }

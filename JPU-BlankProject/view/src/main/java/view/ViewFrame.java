@@ -117,6 +117,7 @@ public class ViewFrame extends JFrame implements KeyListener, IViewFrame {
 	}
 	
 	public void setEntity(IEntity[][] entitys) {
+		viewPanel.setEntitys(entitys);
 		this.entitys = entitys;
 	}
 

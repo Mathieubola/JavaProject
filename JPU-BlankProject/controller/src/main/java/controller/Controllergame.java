@@ -69,7 +69,7 @@ public class Controllergame implements IControllergame {
 	 */
 	IEntity[][] entitys;
 	
-	private int nbMap = 1;
+	private int nbMap = 2;
 	
 	
 
@@ -79,12 +79,12 @@ public class Controllergame implements IControllergame {
 	 * @param view
 	 * @param model
 	 */
-	public Controllergame(final IView view, final IModel model) {
+	public Controllergame(final IView view, final IModel model, IControllerplayer controllerplayer, IControllerother controllerother) {
 		this.setView(view);
 		this.setModel(model);
 		
-		controllerplayer = (IControllerplayer) new Controllerplayer(view, model);
-		controllerother = (IControllerother) new Controllerother(view, model);
+		this.controllerplayer = controllerplayer;
+		this.controllerother = controllerother;
 		controllergame = this;
 	}
 	
@@ -100,6 +100,7 @@ public class Controllergame implements IControllergame {
 	 */
 	public void start() {
 		entitys = model.getMap(nbMap);
+		controllerplayer.setEntity(entitys);
 		
 		while (controllerplayer.getPlayerPosition(entitys).length == 2) {
 			
@@ -107,6 +108,7 @@ public class Controllergame implements IControllergame {
 			this.controllerplayer.collision();
 			this.controllergame.updateAnimation();
 			this.view.getViewFrame().setEntity(entitys);
+			entitys = controllerplayer.getEntity();
 			try {
 				Thread.sleep(delay);
 			} catch (InterruptedException e) {
@@ -146,7 +148,9 @@ public class Controllergame implements IControllergame {
 	}
 
 
-
+	/*private void setEntitys(IEntity[][] entitys) {
+		this.entitys = entitys;
+	}*/
 
 
 

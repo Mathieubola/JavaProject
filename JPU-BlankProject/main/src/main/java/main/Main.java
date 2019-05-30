@@ -13,11 +13,11 @@ public class Main {
 		final Model model = new Model();
         final View view = new View((IModel) model);
         
-        final Controllergame controllergame = new Controllergame(view,model);
-        
         final Controllerother controllerother = new Controllerother(view, model);
         
         final Controllerplayer controllerplayer = new Controllerplayer(view, model);
+        
+        final Controllergame controllergame = new Controllergame(view,model, controllerplayer, controllerother);
         
         view.setControllergame(controllergame);
         

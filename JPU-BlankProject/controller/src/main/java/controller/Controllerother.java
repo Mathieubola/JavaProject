@@ -60,7 +60,7 @@ public class Controllerother implements IControllerother {
 	 */
 
 	public void moveFallingObject(IEntity[][] entitys) {
-        for(int y = 0; y < entitys.length; y++) {
+        for(int y = 0; entitys != null && y < entitys.length; y++) {
             for(int x = 0; x < entitys[y].length; x++) {
                 if(entitys[y][x] != null && entitys[y][x].isFalling()) {
                     Falling falling = (Falling) entitys[y][x];

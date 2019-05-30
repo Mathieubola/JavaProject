@@ -144,13 +144,13 @@ public class ViewPanel extends JPanel implements IViewPanel {
 		graphics.setFont(new Font("Arial", 15, 25));
 		graphics.drawString("Score : " + score, this.getWidth() / 2 - Zoom - 10, Zoom / 2);
 		
-		if (tempoScore < 100) {
+		if (tempoScore < 175) {
 			if ((int) (tempoScore / 10) % 2 == 0) {
 				graphics.setColor(Color.white);
 			} else {
-				graphics.setColor(Color.red);
+				graphics.setColor(Color.red);//Samil dislike the lightings of the text ... :(
 			}
-			graphics.drawString("You need a score of " + 15 * 5 + " or more to pass throught the portal", 20, this.getHeight() - 20);
+			graphics.drawString("You need a score of " + 15 * 10 + " or more to pass through the portal", 20, this.getHeight() - 20);
 			tempoScore++;
 		}
 		
@@ -162,7 +162,7 @@ public class ViewPanel extends JPanel implements IViewPanel {
 				graphics.setColor(Color.red);
 			}
 			graphics.setFont(new Font("Arial", 15, 100));
-			graphics.drawString("Ready", this.getWidth() / 2 - 5 * 20, this.getHeight() / 2);
+			graphics.drawString("Ready", this.getWidth() / 2 - 3 * 50, this.getHeight() / 2);
 		}
 		
 	}
@@ -250,7 +250,6 @@ public class ViewPanel extends JPanel implements IViewPanel {
 	public void displayEcranMort(Graphics graphics) {
 		graphics.setColor(Color.white);
 		graphics.setFont(new Font("Arial", 15, 60));
-		graphics.drawString("U R dad", this.getWidth()/2-150, this.getHeight()/2-25);
 		graphics.drawImage(img_Wallpaper, 0, 0, 750, 750, this);
 	}
 

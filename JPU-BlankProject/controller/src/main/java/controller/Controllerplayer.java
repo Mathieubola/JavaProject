@@ -138,6 +138,7 @@ public class Controllerplayer implements IControllerplayer {
 	 * @see score
 	 */
 	public void orderPerform(final ControllerOrder controllerOrder, IEntity[][] entitys) {
+		this.entitys = entitys;
 		view.getViewFrame().getViewPanel().setDirection(controllerOrder);
 		int[] PlayerPos = getPlayerPosition(entitys);
 		int xP = PlayerPos[0];
@@ -169,17 +170,18 @@ public class Controllerplayer implements IControllerplayer {
 			if (entitys[yP][xP].isDigable()) {
 				if (entitys[yP][xP].getSprite() == 'T') {
 					score += 15;
-					if (score - 15 < 15 * 5 && score >= 15 * 5) {
+					if (score - 15 < 15 * 10 && score >= 15 * 10) {
 						view.getViewFrame().getViewPanel().ready();
 					}
 					view.getViewFrame().getViewPanel().setScore(score);
-				} else if (score >= 15 * 5 && entitys[yP][xP].getSprite() == '=') {
+				} else if (score >= 15 * 10 && entitys[yP][xP].getSprite() == '=') {
 					nbMap++;
 					score = 0;
+					view.getViewFrame().getViewPanel().setScore(0);
 					entitys = model.getMap(nbMap);
 					view.getViewFrame().getViewPanel().resetTempoScore();
 				}
-				if (score > 15 * 5 || entitys[yP][xP] != null && entitys[yP][xP].getSprite() != '=') {
+				if (score > 15 * 10 || entitys[yP][xP] != null && entitys[yP][xP].getSprite() != '=') {
 					entitys[yP][xP] = entitys[oyP][oxP];
 					entitys[oyP][oxP] = null;
 				}
@@ -195,5 +197,15 @@ public class Controllerplayer implements IControllerplayer {
 				entitys[oyP][oxP] = null;
 			}
 		}
+		this.entitys = entitys;
 	}
+
+	public IEntity[][] getEntity() {
+		return entitys;
+	}
+	
+	public void setEntity(IEntity[][] entitys) {
+		this.entitys = entitys;
+	}
+
 }
