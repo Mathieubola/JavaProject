@@ -10,4 +10,8 @@ public interface IViewPanel {
 
 	void setDirection(ControllerOrder controllerOrder);
 
+	void resetTempoScore();
+
+	void ready();
+
 }

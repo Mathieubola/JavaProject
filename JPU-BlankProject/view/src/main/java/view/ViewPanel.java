@@ -28,6 +28,8 @@ public class ViewPanel extends JPanel implements IViewPanel {
 	
 	private int score = 0;
 	private double MortStep = 0.0;
+	private int tempoScore= 0;
+	private int readyTime = 0;
 	private ControllerOrder direction = ControllerOrder.Null;
 	private int directionLife;
 	
@@ -137,10 +139,32 @@ public class ViewPanel extends JPanel implements IViewPanel {
 		graphics.setColor(Color.white);
 		graphics.fillRoundRect(this.getWidth() / 2 - Zoom * 2, -1 * Zoom, Zoom * 4, Zoom * 2, Zoom / 2, Zoom / 2);
 		graphics.setColor(Color.black);
-		graphics.fillRoundRect(this.getWidth() / 2 - Zoom * 2 +2, -1 * Zoom +2, Zoom * 4 -4, Zoom * 2 -4, Zoom / 2, Zoom / 2);
+		graphics.fillRoundRect(this.getWidth() / 2 - Zoom * 2 + 2, -1 * Zoom + 2, Zoom * 4 -4, Zoom * 2 - 4, Zoom / 2, Zoom / 2);
 		graphics.setColor(Color.white);
 		graphics.setFont(new Font("Arial", 15, 25));
 		graphics.drawString("Score : " + score, this.getWidth() / 2 - Zoom - 10, Zoom / 2);
+		
+		if (tempoScore < 100) {
+			if ((int) (tempoScore / 10) % 2 == 0) {
+				graphics.setColor(Color.white);
+			} else {
+				graphics.setColor(Color.red);
+			}
+			graphics.drawString("You need a score of " + 15 * 5 + " or more to pass throught the portal", 20, this.getHeight() - 20);
+			tempoScore++;
+		}
+		
+		if (readyTime > 0) {
+			readyTime--;
+			if ((int) (readyTime / 5) % 2 == 0) {
+				graphics.setColor(Color.white);
+			} else {
+				graphics.setColor(Color.red);
+			}
+			graphics.setFont(new Font("Arial", 15, 100));
+			graphics.drawString("Ready", this.getWidth() / 2 - 5 * 20, this.getHeight() / 2);
+		}
+		
 	}
 	
 	private void displayMap(Graphics graphics) {
@@ -222,7 +246,7 @@ public class ViewPanel extends JPanel implements IViewPanel {
 		
 	public void displayEcranMort(Graphics graphics) {
 		graphics.setColor(Color.white);
-		graphics.setFont(new Font("Arial", 15, 50));
+		graphics.setFont(new Font("Arial", 15, 60));
 		graphics.drawString("U R dad", this.getWidth()/2-150, this.getHeight()/2-25);
 		graphics.drawImage(img_Wallpaper, 0, 0, 750, 750, this);
 	}
@@ -241,6 +265,12 @@ public class ViewPanel extends JPanel implements IViewPanel {
 	public void setDirection(ControllerOrder direction) {
 		this.direction = direction;
 		directionLife = 30;
+	}
+	public void resetTempoScore() {
+		tempoScore = 0;
+	}
+	public void ready() {
+		readyTime = 50;
 	}
 	
 	public int getZoom() {

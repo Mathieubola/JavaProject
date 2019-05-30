@@ -82,7 +82,6 @@ public class Controller implements IController {
 		//model.loadmap("X");
 		entitys = model.getMap(nbMap);
 		
-		
 		while (getPlayerPosition().length == 2) {
 			this.moveFallingObject();
 			this.collision();
@@ -321,11 +320,15 @@ public class Controller implements IController {
 			if (entitys[yP][xP].isDigable()) {
 				if (entitys[yP][xP].getSprite() == 'T') {
 					score += 15;
+					if (score - 15 < 15 * 5 && score >= 15 * 5) {
+						view.getViewFrame().getViewPanel().ready();
+					}
 					view.getViewFrame().getViewPanel().setScore(score);
-				} else if (score > 15 * 5 && entitys[yP][xP].getSprite() == '=') {
+				} else if (score >= 15 * 5 && entitys[yP][xP].getSprite() == '=') {
 					nbMap++;
 					score = 0;
 					entitys = model.getMap(nbMap);
+					view.getViewFrame().getViewPanel().resetTempoScore();
 				}
 				if (score > 15 * 5 || entitys[yP][xP] != null && entitys[yP][xP].getSprite() != '=') {
 					entitys[yP][xP] = entitys[oyP][oxP];
