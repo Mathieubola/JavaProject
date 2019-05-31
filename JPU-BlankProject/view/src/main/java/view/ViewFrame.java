@@ -25,6 +25,7 @@ public class ViewFrame extends JFrame implements KeyListener, IViewFrame {
 	private ViewPanel viewPanel;
 	private IEntity[][] entitys;
 	private static final long serialVersionUID = -697358409737458175L;
+	private int tempoPlayer = 0;
 	
 	public ViewFrame(final IModel model) throws HeadlessException {
 		this.buildViewFrame(model);
@@ -100,7 +101,8 @@ public class ViewFrame extends JFrame implements KeyListener, IViewFrame {
 	public void keyPressed(KeyEvent e) {
 		int[] playerPos = controllerplayer.getPlayerPosition(entitys);
 		Player player = (Player) ( viewPanel.getEntitys()[playerPos[1]][playerPos[0]]);
-		if (player.isAlive()) {
+		if (player.isAlive() && tempoPlayer == 0) {
+			tempoPlayer = 5;
 			this.getControllerplayer().orderPerform(View.keyCodeToControllerOrder(e.getKeyCode()), entitys);
 		}
 		
@@ -117,6 +119,7 @@ public class ViewFrame extends JFrame implements KeyListener, IViewFrame {
 	}
 	
 	public void setEntity(IEntity[][] entitys) {
+		tempoPlayer = tempoPlayer > 0 ? tempoPlayer - 1 : 0;
 		viewPanel.setEntitys(entitys);
 		this.entitys = entitys;
 	}

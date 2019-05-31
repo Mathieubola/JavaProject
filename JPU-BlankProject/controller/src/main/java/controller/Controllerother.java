@@ -30,6 +30,8 @@ public class Controllerother implements IControllerother {
 	 */
 	IEntity[][] entitys;
 	
+	private int moveMonsterTimer = 0;
+	
 
 	/**
 	 * <b>The controller of the class</b>
@@ -109,71 +111,75 @@ public class Controllerother implements IControllerother {
 	 * @see monster
 	 * @see #entitys
 	 */
-	public void moveMonster() {
-		for(int y = 0; y < entitys.length; y++) {
-			for(int x = 0; x < entitys[y].length; x++) {
-				if(entitys[y][x] != null && entitys[y][x].getSprite() == '@') {
-					monstre monstre = (monstre) entitys[y][x];
-					int direction = monstre.getDirection();
-					switch(direction) {
-					case 0:
-						if(entitys[y-1][x] == null && entitys[y][x-1] != null) {
-							entitys[y-1][x] = entitys[y][x];
-		                    entitys[y][x] = null;
-						}else if(entitys[y][x-1] == null) {
-							entitys[y][x-1] = entitys[y][x];
-		                    entitys[y][x] = null;
-		                    monstre.setDirection(3);
-						}else if(entitys[y-1][x] != null && entitys[y][x-1] != null) {
-							monstre.setDirection(2);
+	public void moveMonster(IEntity[][] entitys) {
+		moveMonsterTimer = moveMonsterTimer > 20 ? 0 : moveMonsterTimer + 1;
+		if (moveMonsterTimer == 0) {
+			for(int y = 0; entitys != null && y < entitys.length; y++) {
+				for(int x = 0; x < entitys[y].length; x++) {
+					if(entitys[y][x] != null && entitys[y][x].getSprite() == '@') {
+						monstre monstre = (monstre) entitys[y][x];
+						int direction = monstre.getDirection();
+						switch(direction) {
+						case 0:
+							if(entitys[y-1][x] == null && entitys[y][x-1] != null) {
+								entitys[y-1][x] = entitys[y][x];
+			                    entitys[y][x] = null;
+							}else if(entitys[y][x-1] == null) {
+								entitys[y][x-1] = entitys[y][x];
+			                    entitys[y][x] = null;
+			                    monstre.setDirection(3);
+							}else if(entitys[y-1][x] != null && entitys[y][x-1] != null) {
+								monstre.setDirection(2);
+							}
+							break;
+							
+						case 1:
+							if(entitys[y][x+1] == null && entitys[y-1][x] != null) {
+								entitys[y][x+1] = entitys[y][x];
+			                    entitys[y][x] = null;
+							}else if(entitys[y-1][x] == null) {
+								entitys[y-1][x] = entitys[y][x];
+			                    entitys[y][x] = null;
+			                    monstre.setDirection(0);
+							}else if(entitys[y][x+1] != null && entitys[y-1][x] != null) {
+								monstre.setDirection(3);
+							}					
+							break;
+							
+						case 2:
+							if(entitys[y+1][x] == null && entitys[y][x+1] != null) {
+								entitys[y+1][x] = entitys[y][x];
+			                    entitys[y][x] = null;
+							}else if(entitys[y][x+1] == null) {
+								entitys[y][x+1] = entitys[y][x];
+			                    entitys[y][x] = null;
+			                    monstre.setDirection(1);
+							}else if(entitys[y+1][x] != null && entitys[y][x+1] != null) {
+								monstre.setDirection(0);
+							}
+							break;
+							
+						case 3:
+							if(entitys[y][x-1] == null && entitys[y+1][x] != null) {
+								entitys[y][x-1] = entitys[y][x];
+			                    entitys[y][x] = null;
+							}else if(entitys[y+1][x] == null) {
+								entitys[y+1][x] = entitys[y][x];
+			                    entitys[y][x] = null;
+			                    monstre.setDirection(2);
+							}else if(entitys[y][x-1] != null && entitys[y+1][x] != null) {
+								monstre.setDirection(1);
+							}	
+							break;
 						}
-						break;
+	
 						
-					case 1:
-						if(entitys[y][x+1] == null && entitys[y-1][x] != null) {
-							entitys[y][x+1] = entitys[y][x];
-		                    entitys[y][x] = null;
-						}else if(entitys[y-1][x] == null) {
-							entitys[y-1][x] = entitys[y][x];
-		                    entitys[y][x] = null;
-		                    monstre.setDirection(0);
-						}else if(entitys[y][x+1] != null && entitys[y-1][x] != null) {
-							monstre.setDirection(3);
-						}					
-						break;
-						
-					case 2:
-						if(entitys[y+1][x] == null && entitys[y][x+1] != null) {
-							entitys[y+1][x] = entitys[y][x];
-		                    entitys[y][x] = null;
-						}else if(entitys[y][x+1] == null) {
-							entitys[y][x+1] = entitys[y][x];
-		                    entitys[y][x] = null;
-		                    monstre.setDirection(1);
-						}else if(entitys[y+1][x] != null && entitys[y][x+1] != null) {
-							monstre.setDirection(0);
-						}
-						break;
-						
-					case 3:
-						if(entitys[y][x-1] == null && entitys[y+1][x] != null) {
-							entitys[y][x-1] = entitys[y][x];
-		                    entitys[y][x] = null;
-						}else if(entitys[y+1][x] == null) {
-							entitys[y+1][x] = entitys[y][x];
-		                    entitys[y][x] = null;
-		                    monstre.setDirection(2);
-						}else if(entitys[y][x-1] != null && entitys[y+1][x] != null) {
-							monstre.setDirection(1);
-						}	
-						break;
 					}
-
 					
 				}
-				
 			}
 		}
+		this.entitys = entitys;
 	}
 
 

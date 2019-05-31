@@ -69,7 +69,7 @@ public class Controllergame implements IControllergame {
 	 */
 	IEntity[][] entitys;
 	
-	private int nbMap = 2;
+	private int nbMap = 1;
 	
 	
 
@@ -105,6 +105,7 @@ public class Controllergame implements IControllergame {
 		while (controllerplayer.getPlayerPosition(entitys).length == 2) {
 			
 			this.controllerother.moveFallingObject(entitys);
+			this.controllerother.moveMonster(entitys);
 			this.controllerplayer.collision();
 			this.controllergame.updateAnimation();
 			this.view.getViewFrame().setEntity(entitys);

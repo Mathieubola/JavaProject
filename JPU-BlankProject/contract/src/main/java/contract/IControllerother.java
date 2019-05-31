@@ -5,7 +5,7 @@ public interface IControllerother {
 	
 	void moveFallingObject(IEntity[][] entitys);
 
-	void moveMonster();
+	void moveMonster(IEntity[][] entitys);
 
 
 
