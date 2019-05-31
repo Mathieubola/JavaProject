@@ -190,7 +190,7 @@ public class Controllerplayer implements IControllerplayer {
 		
 		if (entitys[yP][xP] != null && entitys[yP][xP].isPushable() && entitys[yP*2-oyP][xP*2-oxP] == null) {
 			TempoPush++;
-			if (TempoPush > 20) {
+			if (TempoPush > 2) {
 				TempoPush = 0;
 				entitys[yP*2-oyP][xP*2-oxP] = entitys[yP][xP];
 				entitys[yP][xP] = entitys[oyP][oxP];
