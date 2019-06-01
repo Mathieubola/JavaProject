@@ -15,9 +15,17 @@ import entity.Portal;
 import entity.Rock;
 import entity.monstre;
 
+/**
+ * The driver for the connection to the database
+ * 
+ */
 public class Driver {
 	
 	static entity.Entity[][] getMap() {
+		
+		/**
+		 * Instanciation of the map
+		 */
 		Map map = new Map();
 		
 		Connection myConn = null;
