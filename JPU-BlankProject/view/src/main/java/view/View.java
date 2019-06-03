@@ -110,6 +110,15 @@ public class View implements IView, Runnable {
 	public void setControllerplayer(final IControllerplayer controllerplayer) {
 		this.viewFrame.setControllerplayer(controllerplayer);
 	}
+	
+	/**
+	 * <b> Getter of controllerplayer</b>
+	 * 
+	 * @return controllerplayer
+	 */
+	public IControllerplayer getControllerplayer() {
+		return this.viewFrame.getControllerplayer();
+	}
 
 
 	/**

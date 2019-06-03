@@ -15,4 +15,6 @@ public interface IViewFrame {
 	
 	void setEntity(IEntity[][] entitys);
 
+	IControllerplayer getControllerplayer();
+
 }

@@ -165,7 +165,7 @@ public class ViewFrame extends JFrame implements KeyListener, IViewFrame {
 	 * @see IControllerplayer
 	 * @return controllerplayer
 	 */
-	protected IControllerplayer getControllerplayer() {
+	public IControllerplayer getControllerplayer() {
 		return this.controllerplayer;
 	}
 	

@@ -1,12 +1,14 @@
 package controller;
 
 import contract.IControllerother;
+import contract.IControllerplayer;
 import contract.IEntity;
 import contract.IModel;
 import contract.IView;
 import entity.Falling;
 import entity.Player;
 import entity.monstre;
+import entity.Diamant;
 /**
  * <b>This class is for enemies or objects  as well as their collisions</b>
  * 
@@ -31,6 +33,8 @@ public class Controllerother implements IControllerother {
 	IEntity[][] entitys;
 	
 	private int moveMonsterTimer = 0;
+	
+	IView view;
 	
 
 	/**
@@ -79,6 +83,8 @@ public class Controllerother implements IControllerother {
                     }else if(y < entitys.length-1 && entitys[y+1][x].isPlayer() == true && falling.getKilling() == true) {
                         Player player = (Player) entitys[y+1][x];
                         player.setAlive(false);
+                    } else if (y < entitys.length-1 && entitys[y+1][x].getSprite() == '@' && falling.getKilling() == true) {
+                    	entitys[y+1][x] = new Diamant();
                     } else if (entitys[y+1][x] != null && !entitys[y+1][x].isPlayer()) {
                         falling.setKilling(false);
                     }
@@ -90,10 +96,12 @@ public class Controllerother implements IControllerother {
 
 	
 	/**
+	 * Setter of view
 	 * 
 	 * @param pview
 	 */
 	private void setView(final IView pview) {
+		this.view = pview;
 	}
 
 	/**
@@ -124,6 +132,9 @@ public class Controllerother implements IControllerother {
 							if(entitys[y-1][x] == null && entitys[y][x-1] != null) {
 								entitys[y-1][x] = entitys[y][x];
 			                    entitys[y][x] = null;
+							}else if(entitys[y-1][x] != null && entitys[y-1][x].isPlayer() && entitys[y][x-1] != null) {
+								Player player = (Player) entitys[y-1][x];
+								player.setAlive(false);
 							}else if(entitys[y][x-1] == null) {
 								entitys[y][x-1] = entitys[y][x];
 			                    entitys[y][x] = null;
@@ -137,6 +148,9 @@ public class Controllerother implements IControllerother {
 							if(entitys[y][x+1] == null && entitys[y-1][x] != null) {
 								entitys[y][x+1] = entitys[y][x];
 			                    entitys[y][x] = null;
+							}else if(entitys[y][x+1] != null && entitys[y][x+1].isPlayer() && entitys[y-1][x] != null) {
+								Player player = (Player) entitys[y][x+1];
+								player.setAlive(false);
 							}else if(entitys[y-1][x] == null) {
 								entitys[y-1][x] = entitys[y][x];
 			                    entitys[y][x] = null;
@@ -150,6 +164,9 @@ public class Controllerother implements IControllerother {
 							if(entitys[y+1][x] == null && entitys[y][x+1] != null) {
 								entitys[y+1][x] = entitys[y][x];
 			                    entitys[y][x] = null;
+							}else if(entitys[y+1][x] != null && entitys[y+1][x].isPlayer() && entitys[y][x+1] != null) {
+								Player player = (Player) entitys[y+1][x];
+								player.setAlive(false);
 							}else if(entitys[y][x+1] == null) {
 								entitys[y][x+1] = entitys[y][x];
 			                    entitys[y][x] = null;
@@ -163,6 +180,9 @@ public class Controllerother implements IControllerother {
 							if(entitys[y][x-1] == null && entitys[y+1][x] != null) {
 								entitys[y][x-1] = entitys[y][x];
 			                    entitys[y][x] = null;
+							}else if(entitys[y][x-1] != null && entitys[y][x-1].isPlayer() && entitys[y+1][x] != null) {
+								Player player = (Player) entitys[y][x-1];
+								player.setAlive(false);
 							}else if(entitys[y+1][x] == null) {
 								entitys[y+1][x] = entitys[y][x];
 			                    entitys[y][x] = null;
