@@ -48,6 +48,7 @@ public class Controllerother implements IControllerother {
 	 * <b>This method is used to make the rocks and diamonds fall down</b>
 	 * 
 	 * <p>The loops are used to "read the map"</p>
+	 * 
 	 * <p>Then it checks if the entities should fall and how it should fall</p>
 	 * <p>This method also checks if the player is dying or not</p>
 	 * 
