@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import entity.Destructible;
-import entity.Diamant;
+import entity.Diamond;
 import entity.Entity;
 import entity.Indestructible;
 import entity.Map;
@@ -57,7 +57,7 @@ public class Driver {
 							map.element[j][i] = new Rock();
 							break;
 						case "T":
-							map.element[j][i] = new Diamant();
+							map.element[j][i] = new Diamond();
 							break;
 						case "_":
 							map.element[j][i] = new Destructible();

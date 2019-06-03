@@ -4,12 +4,12 @@ package entity;
  * 
  * @see Falling
  */
-public class Diamant extends Falling {
+public class Diamond extends Falling {
 
 	/**
 	 * The constructor of Diamant class
 	 */
-	public Diamant() {
+	public Diamond() {
 		super(false, true, 'T', 4);
 		this.setStep(0.1);
 	}

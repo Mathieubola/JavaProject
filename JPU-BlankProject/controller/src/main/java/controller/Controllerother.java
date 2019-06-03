@@ -1,14 +1,13 @@
 package controller;
 
 import contract.IControllerother;
-import contract.IControllerplayer;
 import contract.IEntity;
 import contract.IModel;
 import contract.IView;
 import entity.Falling;
 import entity.Player;
 import entity.monstre;
-import entity.Diamant;
+import entity.Diamond;
 /**
  * <b>This class is for enemies or objects  as well as their collisions</b>
  * 
@@ -16,11 +15,6 @@ import entity.Diamant;
  * @see IControllerother
  */
 public class Controllerother implements IControllerother {
-	
-	/**
-	 * <b>The score of the player (1 diamond = 15 points)</b>
-	 */
-	public int score = 0; //Player's Score
 	
 	
 	/**
@@ -48,18 +42,13 @@ public class Controllerother implements IControllerother {
 		this.setModel(model);
 	}
 	
-	/**
-	 * 
-	 */
-	public void control() {
-		
-	}
+
 	
 	/**
-	 * <b>This method is used to make the rocks and diamonds falling down</b>
+	 * <b>This method is used to make the rocks and diamonds fall down</b>
 	 * 
-	 * <p>The two for loop aims to "read the map"</p>
-	 * <p>Then it checks if the entitys should fall and how it should fall</p>
+	 * <p>The loops are used to "read the map"</p>
+	 * <p>Then it checks if the entities should fall and how it should fall</p>
 	 * <p>This method also checks if the player is dying or not</p>
 	 * 
 	 * @see #entitys
@@ -84,7 +73,7 @@ public class Controllerother implements IControllerother {
                         Player player = (Player) entitys[y+1][x];
                         player.setAlive(false);
                     } else if (y < entitys.length-1 && entitys[y+1][x].getSprite() == '@' && falling.getKilling() == true) {
-                    	entitys[y+1][x] = new Diamant();
+                    	entitys[y+1][x] = new Diamond();
                     } else if (entitys[y+1][x] != null && !entitys[y+1][x].isPlayer()) {
                         falling.setKilling(false);
                     }
@@ -106,7 +95,7 @@ public class Controllerother implements IControllerother {
 
 	/**
 	 * 
-	 * @param model
+	 * @param Setter of model
 	 */
 	private void setModel(final IModel model) {
 	}
@@ -114,7 +103,7 @@ public class Controllerother implements IControllerother {
 	/**
 	 * <b>This method is used to move the enemy</b>
 	 * 
-	 * <p>The two for loops aims to "read the map"</p>
+	 * <p>The loops are used to "read the map"</p>
 	 * 
 	 * @see monster
 	 * @see #entitys

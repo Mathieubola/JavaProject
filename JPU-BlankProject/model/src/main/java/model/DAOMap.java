@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import entity.Destructible;
-import entity.Diamant;
+import entity.Diamond;
 import entity.Entity;
 import entity.Indestructible;
 import entity.Map;
@@ -71,7 +71,7 @@ public Entity[][] getMapsql(int nbMap) {
 					map.element[y][x] = new Rock();
 					break;
 				case "T":
-					map.element[y][x] = new Diamant();
+					map.element[y][x] = new Diamond();
 					break;
 				case "_":
 					map.element[y][x] = new Destructible();

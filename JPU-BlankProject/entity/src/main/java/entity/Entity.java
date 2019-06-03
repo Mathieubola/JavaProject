@@ -38,7 +38,7 @@ public abstract class Entity implements IEntity{
 	/**
 	 * This attribute will store the char value that correspond to the entity
 	 * 
-	 * @see Diamant
+	 * @see Diamond
 	 * @see monstre
 	 * @see Player
 	 * @see Portal

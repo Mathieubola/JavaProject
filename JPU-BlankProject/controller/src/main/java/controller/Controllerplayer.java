@@ -58,31 +58,6 @@ public class Controllerplayer implements IControllerplayer {
 		this.setView(view);
 		this.setModel(model);
 	}
-	
-	/**
-	 * 
-	 */
-	public void control() {
-		
-	}
-	
-
-	/**
-	 * <b>not used</b>
-	 */
-	public void movePlayer() {
-		//En fonction de la direction
-	}
-	
-	
-	/**
-	 * not used
-	 */
-	public void collision() {
-		//Checker si on c'est pas pris un rochet sur la geul ou si on est pas sur un crystal ou un portail
-
-	}
-	
 
 	
 	/**
@@ -207,5 +182,8 @@ public class Controllerplayer implements IControllerplayer {
 	public void setEntity(IEntity[][] entitys) {
 		this.entitys = entitys;
 	}
+
+
+
 
 }

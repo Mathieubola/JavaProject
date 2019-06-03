@@ -61,9 +61,9 @@ public class Controllergame implements IControllergame {
 	private int delay = 30; //Delay between frames (30 fps -> 1000/30 = 29.333... ~= 30 ms)
 	
 	/**
-	 * <b>Declaration of entitys</b>
+	 * <b>Declaration of entities</b>
 	 * 
-	 * <p>entitys is an array that represent the map and the entitys in the map (player, rock, enemy...)</p>  
+	 * <p>entities is an array that represent the map and the entitys in the map (player, rock, enemy...)</p>  
 	 * 
 	 * @see IEntity
 	 */
@@ -106,7 +106,6 @@ public class Controllergame implements IControllergame {
 			
 			this.controllerother.moveFallingObject(entitys);
 			this.controllerother.moveMonster(entitys);
-			this.controllerplayer.collision();
 			this.controllergame.updateAnimation();
 			this.view.getViewFrame().setEntity(entitys);
 			entitys = controllerplayer.getEntity();
@@ -122,7 +121,7 @@ public class Controllergame implements IControllergame {
 	/**
 	 * <b> updating the display</b>
 	 * 
-	 * <p>This method send the entitys array to the view and ask the view to update the display of the game</p>
+	 * <p>This method send the entities array to the view and ask the view to update the display of the game</p>
 	 * 
 	 * @see #view
 	 */
@@ -147,16 +146,5 @@ public class Controllergame implements IControllergame {
 	private void setModel(final IModel model) {
 		this.model = model;
 	}
-
-
-	/*private void setEntitys(IEntity[][] entitys) {
-		this.entitys = entitys;
-	}*/
-
-
-
-	
-	
-
 
 }
