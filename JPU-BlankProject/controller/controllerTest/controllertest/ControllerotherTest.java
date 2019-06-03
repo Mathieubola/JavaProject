@@ -1,15 +1,21 @@
-package controller;
+package controllertest;
 
 import static org.junit.Assert.*;
 
 import java.util.Random;
 
 import contract.IView;
+import controller.Controllerother;
+import entity.Destructible;
+import entity.Entity;
+import entity.Indestructible;
+import entity.Player;
+import entity.Rock;
+import entity.monstre;
 import contract.IControllerother;
 import contract.IEntity;
 import contract.IModel;
 import org.junit.*;
-import entity.*;
 
 
 public class ControllerotherTest {

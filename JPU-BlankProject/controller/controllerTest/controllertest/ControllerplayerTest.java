@@ -1,4 +1,4 @@
-package controller;
+package controllertest;
 
 import static org.junit.Assert.*;
 
@@ -11,6 +11,7 @@ import contract.IControllerplayer;
 import contract.IEntity;
 import contract.IModel;
 import contract.IView;
+import controller.Controllerplayer;
 import entity.Destructible;
 import entity.Entity;
 import entity.Player;
