@@ -2,16 +2,20 @@ package controller;
 
 import static org.junit.Assert.*;
 
+import javax.swing.text.View;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import contract.ControllerOrder;
 import contract.IControllerplayer;
 import contract.IEntity;
 import contract.IModel;
 import contract.IView;
+import entity.Destructible;
 import entity.Entity;
 import entity.Player;
 
@@ -49,7 +53,16 @@ public class ControllerplayerTest {
 
 	@Test
 	public void testOrderPerform() {
-		fail("Not yet implemented");
+		
+		final char expected = '_';
+		
+		IEntity[][] map1 = new Entity[2][2];
+		
+		map1[0][0] = new Destructible();
+		map1[0][1] = new Destructible();
+		map1[1][0] = new Player();
+		map1[1][1] = new Destructible();
+		//controllerp.orderPerform(ControllerOrder.Right, map1);
+		assertEquals(expected, map1[1][1].getSprite());
 	}
-
 }

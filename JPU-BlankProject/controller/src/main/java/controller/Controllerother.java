@@ -190,11 +190,6 @@ public class Controllerother implements IControllerother {
 			}
 		}
 		this.entitys = entitys;
-	}
-
-
-
-
-	
+	}	
 	
 }
