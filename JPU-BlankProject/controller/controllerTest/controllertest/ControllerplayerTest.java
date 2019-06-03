@@ -16,28 +16,66 @@ import entity.Destructible;
 import entity.Entity;
 import entity.Player;
 
+/**
+ * The test class for the controllerplayer class
+ * 
+ */
 public class ControllerplayerTest {
+	
+	/**
+	 * Setting the view
+	 */
 	IView view = null;
+	
+	/**
+	 * Settint the model
+	 */
 	IModel model = null;
+	
+	/**
+	 * declaring the controler for the player
+	 */
 	IControllerplayer controllerp;
 
+	/**
+	 * 
+	 * @throws Exception
+	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
 
+	/**
+	 * 
+	 * @throws Exception
+	 */
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
 
+	/**
+	 * Instanciation of the controllerplayer
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		controllerp = new Controllerplayer(view, model);
 	}
 
+	/**
+	 * 
+	 * @throws Exception
+	 */
 	@After
 	public void tearDown() throws Exception {
 	}
 
+	/**
+	 * This is the test method for the getPlayerPosition method
+	 * The locations of the player that we expected are 1 and 1.
+	 * Then it create a entity array and put the player into it
+	 * Finaly the method compare the result of the getPlayerPosition and the expected values
+	 */
 	@Test
 	public void testGetPlayerPosition() {
 		final int expected = 1;
@@ -48,6 +86,10 @@ public class ControllerplayerTest {
 		assertEquals(expected2, controllerp.getPlayerPosition(map)[1]);
 	}
 
+	/**
+	 * This is the test method for the orderPerform method
+	 * 
+	 */
 	@Test
 	public void testOrderPerform() {
 		
