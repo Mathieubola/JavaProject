@@ -2,7 +2,7 @@ package entity;
 
 /**
  * 
- * @see Entityt
+ * @see Entity
  */
 public abstract class Anime extends Entity {
 	
@@ -13,7 +13,7 @@ public abstract class Anime extends Entity {
 	
 	/**
 	 * The speed between two frames
-	 */
+	 */ 
 	private double step = 0.05;
 	
 	/**

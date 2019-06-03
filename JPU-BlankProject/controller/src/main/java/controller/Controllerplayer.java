@@ -105,7 +105,7 @@ public class Controllerplayer implements IControllerplayer {
 	/**
 	 * <b>This method is used to move the player depending on the key he pressed</b>
 	 * 
-	 * <p>This method also check if the player go into a diamond and update his score</p>
+	 * <p>This method also checks if the player goes into a diamond and update his score</p>
 	 * 
 	 * @see controllerOrder
 	 * @see view
