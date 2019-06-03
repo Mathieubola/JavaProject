@@ -49,7 +49,7 @@ public Entity[][] getMapsql(int nbMap) {
 
 	try {
 
-		myConn = DriverManager.getConnection("jdbc:mysql://localhost/jpublankproject?autoReconnect=true&useSSL=false","root","");
+		myConn = getConnection();
 		myStmt = myConn.prepareCall("{call ProcBoulderdashMap" + nbMap + "()}");
 		myRs = myStmt.executeQuery();
 		
