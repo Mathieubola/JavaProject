@@ -9,6 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ModelTest {
+
 	private Model model;
 	private int nbMap = 1;
 
@@ -33,5 +34,4 @@ public class ModelTest {
 	public void testGetMap() {
 		assertNotNull(model.getMap(nbMap));
 	}
-
 }

@@ -2,15 +2,11 @@ package controller;
 
 import static org.junit.Assert.*;
 
-import javax.swing.text.View;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import contract.ControllerOrder;
 import contract.IControllerplayer;
 import contract.IEntity;
 import contract.IModel;

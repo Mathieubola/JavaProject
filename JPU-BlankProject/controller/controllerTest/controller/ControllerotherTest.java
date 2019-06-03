@@ -6,7 +6,6 @@ import java.util.Random;
 
 import contract.IView;
 import contract.IControllerother;
-import contract.IControllerplayer;
 import contract.IEntity;
 import contract.IModel;
 import org.junit.*;
