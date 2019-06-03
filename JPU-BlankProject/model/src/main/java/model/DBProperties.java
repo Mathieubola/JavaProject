@@ -4,27 +4,29 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import contract.IDBProperties;
+
 /**
  * The Class DBProperties.
  *
  * @author Jean-Aymeric Diet
  */
-class DBProperties extends Properties {
+class DBProperties extends Properties implements IDBProperties {
 
 	/** The Constant serialVersionUID. */
-	private static final long		serialVersionUID			= 5289057445894568927L;
+	private static final long serialVersionUID = 5289057445894568927L;
 
 	/** The Constant PROPERTIES_FILE_NAME. */
-	private final static String	PROPERTIES_FILE_NAME	= "model.properties";
+	private final static String	PROPERTIES_FILE_NAME = "model.properties";
 
 	/** The url. */
-	private String							url										= "";
+	private String url = "jdbc:mysql://localhost/jpublankproject?autoReconnect=true&useSSL=false";
 
 	/** The login. */
-	private String							login									= "";
+	private String login = "root";
 
 	/** The password. */
-	private String							password							= "";
+	private String password = "";
 
 	/**
 	 * Instantiates a new DB properties.

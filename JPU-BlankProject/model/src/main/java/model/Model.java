@@ -4,82 +4,43 @@ import java.sql.SQLException;
 import java.util.Observable;
 
 import contract.IModel;
-import entity.HelloWorld;
 
-/**
- * The Class Model.
- *
- * @author Jean-Aymeric Diet
- */
+import entity.Entity;
+import entity.Map;
+
+
+
 public final class Model extends Observable implements IModel {
+	
+	@SuppressWarnings("unused")
+	private Map map;
 
-	/** The helloWorld. */
-	private HelloWorld helloWorld;
+	Entity[][] oui;
 
-	/**
-	 * Instantiates a new model.
-	 */
 	public Model() {
-		this.helloWorld = new HelloWorld();
+		this.map = new Map();
 	}
 
-	/**
-     * Gets the hello world.
-     *
-     * @return the hello world
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage()
-	 */
-	public HelloWorld getHelloWorld() {
-		return this.helloWorld;
+	public Entity[][] getMap(int nbMap) {
+			try {
+				DAOMap daomap = new DAOMap(DBConnection.getInstance().getConnection());
+				oui = daomap.getMapsql(nbMap);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		return oui;
+		
 	}
 
-	/**
-     * Sets the hello world.
-     *
-     * @param helloWorld
-     *            the new hello world
-     */
-	private void setHelloWorld(final HelloWorld helloWorld) {
-		this.helloWorld = helloWorld;
-		this.setChanged();
-		this.notifyObservers();
-	}
 
-	/**
-     * Load hello world.
-     *
-     * @param code
-     *            the code
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage(java.lang.String)
-	 */
-	public void loadHelloWorld(final String code) {
-		try {
-			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
-			this.setHelloWorld(daoHelloWorld.find(code));
-		} catch (final SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-     * Gets the observable.
-     *
-     * @return the observable
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getObservable()
-	 */
 	public Observable getObservable() {
 		return this;
 	}
+
+	@Override
+	public void loadmap(String code) {
+		
+	}
+
 }

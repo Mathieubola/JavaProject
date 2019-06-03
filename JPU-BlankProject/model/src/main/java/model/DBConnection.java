@@ -4,12 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * The Class DBConnection.
- *
- * @author Jean-Aymeric Diet
- */
-final class DBConnection {
+import contract.IDBConnection;
+
+
+final class DBConnection implements IDBConnection {
 	/** The instance. */
 	private static DBConnection	INSTANCE	= null;
 
