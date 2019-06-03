@@ -5,146 +5,58 @@ import static org.junit.Assert.*;
 import java.util.Random;
 
 import contract.IView;
+import contract.IControllerother;
+import contract.IControllerplayer;
+import contract.IEntity;
 import contract.IModel;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
+import org.junit.*;
 import entity.*;
 
-/**
- * This is the test class for Controllerother
- * 
- * @see Controllerother
- * 
- */
+
 public class ControllerotherTest {
-	
-	/**
-	 * creater a controllerother object
-	 */
-	private Controllerother controllero;
+	IModel model = null;
+	IView view = null;
+	IControllerother controllero;
 
-	private IModel model;
-
-	private IView view;
-
-	
-	/**
-	 * This test method is applied before the test methods
-	 * 
-	 * @throws Exception
-	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
-	
-	
-	/**
-	 * This method is applied after the test methods
-	 * 
-	 * @throws Exception
-	 */
+
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
 
-	
-	/**
-	 * This test method is applied before the test methods
-	 * 
-	 * Setting up a controllerother that we need for the tests
-	 * 
-	 * @throws Exception
-	 */
 	@Before
 	public void setUp() throws Exception {
 
 		controllero = new Controllerother(view, model);
 	}
 
-	/**
-	 * This method is applied after the test methods
-	 * 
-	 * @throws Exception
-	 */
 	@After
 	public void tearDown() throws Exception {
 	}
-	
-	/**
-	 * This method is the test for the falling objects the controllerother Class
-	 * 
-	 * It create a test map, call the method that is used to make the diamonds and rocks falling and finnaly checks if they fell down well depending on the situation
-	 * 
-	 * @see moveFallingObject
-	 */
+
 	@Test
 	public void testMoveFallingObject() {
-		Entity[][] map1 = new Entity[3][3];
-		final char expected = 'O';
+		IEntity[][] map1 = new Entity[3][3];
+		final char expected = '_';
 		
         map1[0][0] = new Destructible();
-        map1[0][1] = new Rock();
+        map1[0][1] = new Destructible();
         map1[0][2] = new Destructible();
         map1[1][0] = new Destructible();
         map1[1][2] = new Destructible();
         map1[2][0] = new Destructible();
         map1[2][2] = new Destructible();
-        //controllero.moveFallingObject(map1);
-        System.out.println(map1[0][1].getSprite());
+        controllero.moveFallingObject(map1);
         assertEquals(expected, map1[0][1].getSprite());
-        
-        Entity[][] map2 = new Entity[3][3];
-		final char expected2 = 'T';
-		
-		map2[0][0] = new Destructible();
-		map2[0][1] = new Destructible();
-		map2[0][2] = new Rock();
-		map2[1][0] = new Destructible();
-		map2[1][2] = new Destructible();
-		map2[2][0] = new Destructible();
-		map2[2][1] = new monstre();
-		map2[2][2] = new Destructible();
-        //controllero.moveFallingObject(map1);
-		map2[2][1] = new Diamond();
-        System.out.println(map2[2][1].getSprite());
-        assertEquals(expected2, map2[2][1].getSprite());
-        
-        Entity[][] map3 = new Entity[3][3];
-		final char expected3 = 'O';
-		
-		map3[0][0] = new Destructible();
-		map3[0][1] = new Rock();
-		map3[0][2] = new Destructible();
-		map3[1][0] = new Destructible();
-		map3[1][2] = new Destructible();
-		map3[2][0] = new Destructible();
-		map3[2][2] = new Destructible();
-        //controllero.moveFallingObject(map1);
-        System.out.println(map3[0][1].getSprite());
-        assertEquals(expected3, map3[0][1].getSprite());
-        
 	}
 
-	
-	/**
-	 * This is the method to test the movement of a monster depending on the possibility
-	 * 
-	 * It create a test map and fill it randomly.
-	 * Then it place a monster in this map and call the method that make the monsters moving.
-	 * Finaly it checks if the monster is in the expected position
-	 * 
-	 * @see monstre
-	 * @see moveMonster
-	 */
 	@Test
 	public void testMoveMonster() {
 		final char expected = '@';
 		
-		Entity[][] map = new Entity[60][60];
+		IEntity[][] map = new Entity[60][60];
         Random rand = new Random();
         double alea;
         for (int i = 0; i < 60; i++) {
