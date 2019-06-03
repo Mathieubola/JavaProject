@@ -44,10 +44,6 @@ public class View implements IView, Runnable {
 	public View(final IModel model) {
 		this.viewFrame = new ViewFrame(model);
 		SwingUtilities.invokeLater(this);
-		keyCodeControllerOrder.put(90, ControllerOrder.Up);
-		keyCodeControllerOrder.put(81, ControllerOrder.Left);
-	    keyCodeControllerOrder.put(83, ControllerOrder.Down);
-	    keyCodeControllerOrder.put(68, ControllerOrder.Right);
 	}
 	
 	/**
@@ -57,6 +53,10 @@ public class View implements IView, Runnable {
 	 * @return
 	 */
 	protected static ControllerOrder keyCodeToControllerOrder(final int keyCode) {
+		keyCodeControllerOrder.put(90, ControllerOrder.Up);
+		keyCodeControllerOrder.put(81, ControllerOrder.Left);
+	    keyCodeControllerOrder.put(83, ControllerOrder.Down);
+	    keyCodeControllerOrder.put(68, ControllerOrder.Right);
 		if (keyCodeControllerOrder.containsKey(keyCode)) {
 			return keyCodeControllerOrder.get(keyCode);
 		} else {
