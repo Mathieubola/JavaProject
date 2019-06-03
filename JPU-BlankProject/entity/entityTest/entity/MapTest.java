@@ -2,11 +2,7 @@ package entity;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 
 import entity.Map;
 
@@ -27,21 +23,21 @@ public class MapTest {
 	@Test
 	public void testGetName() {
 		  final String expected = "";
-	        assertEquals(expected, this.map.getName());
+	        assertEquals(expected, MapTest.map.getName());
 	        System.out.println("Name is a success");
 	    }
 
 	@Test
 	public void testGetHeight() {
 		  final int expected = 0;
-	        assertEquals(expected, this.map.getHeight());
+	        assertEquals(expected, MapTest.map.getHeight());
 	        System.out.println("Height is a success");
 	    }
 
 	@Test
 	public void testGetWidth() {
 		  final int expected = 0;
-	        assertEquals(expected, this.map.getWidth());
+	        assertEquals(expected, MapTest.map.getWidth());
 	        System.out.println("Width is a success");
 	    }
 
